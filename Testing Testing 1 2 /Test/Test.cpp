@@ -1,11 +1,45 @@
 #include <iostream>
-
-
 using namespace std;
 
+
+
+//Inputs and checks if the value entered is an int or now and returns it to be calculated 
+int checkType(string currency) {
+	int quantity;
+	cout << "Please enter the number of "<< currency << " you have: " ;
+	cin >> quantity;	
+	
+	while (true) {
+		
+		
+		try{
+			if (cin.fail())  //catches chars 
+			{
+				cin.clear(); // clear the fail state
+				cin.ignore(32767,'\n'); // clear the buffer
+				throw 1;
+			}
+			else
+			{
+				return quantity;
+			}
+		}
+		catch (int err){
+			cout << "wrong try again" << endl;
+			cout << "Please enter the number of "<< currency << " you have: " ;
+			cin >> quantity;
+			
+		}	
+		
+	}
+	return quantity;
+}
+
+
 int main(){
-	cout << "Hello World!" << endl;
-	/*string s;
+	
+	/*cout << "Hello World!" << endl;
+	string s;
 	s = "#";
 	
 	//for loop 
@@ -40,77 +74,19 @@ int main(){
 	int dimes = 0;
 	int nickles = 0;
 	int pennies = 0;
-	cin.clear();
-	cout << "Please enter the number of quarters you have: " ;
-	/* cin >> quarters;
 	
-	cin.clear();
-	cout << "Please enter the number of dimes you have: " ;
-	cin >> dimes;
-
-	cin.clear();
-	cout << "Please enter the number of nickles you have: " ;
-	cin >> nickles;
-
-	cin.clear();
-	cout << "Please enter the number of pennies you have: " ;
-	cin >> pennies; */
-	
-	while (true) {
-		
-		try{
-			cin >> quarters;
-			if (cin.fail())  //catches chars 
-			{
-				throw 1;
-			}
-			else
-			{
-				break;
-			}
-		}
-		catch (int err){
-			cout << "wrong try again" << endl;
-			cin.clear();
-			cout << "Please enter the number of quarters you have: " << endl;
-			cin >> quarters;
-		}						
-	}
-		
+	quarters = checkType("quarters");
 	total = quarters * .25;
-	//total += (dimes * .10);
-	//total += nickles * .05;
-	//total += pennies * .01;
+	
+	dimes = checkType("dimes");
+	total += dimes * .10;
+	
+	nickles = checkType("nickles");
+	total += nickles * .05;
+	
+	pennies = checkType("pennies");
+	total += pennies * .01;
 	cout << "You have a total of $" << total << endl;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 }
