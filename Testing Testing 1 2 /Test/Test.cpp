@@ -5,23 +5,32 @@ using namespace std;
 
 //Inputs and checks if the value entered is an int or not and returns it to be calculated 
 int checkType(string currency) {
-	int quantity;
-	
+	double quantity;
+	int qcheck;
 	
 	while (true) {
 		cout << "Please enter the number of "<< currency << " you have: " ;
-
+		
+		//checks to see if what was entered is a number or not
 		if(cin >> quantity) 
 		{
+			qcheck = quantity;
+			//checks to makesure the number is not negative 
 			if (quantity < 0 )
 			{
-				cout << "Enter a number grater than 0" << endl;
+				cout << "Enter a number grater than 0\n" << endl;
+			}
+			else if (qcheck != quantity)
+			{
+				cout << "Enter Please enter whole numbers\n" << endl;
 			}
 			else
 			{
-			return quantity;
+			return (int) quantity;
 			}
 		}
+		
+		//no idea what this even is 
 		else if (cin.eof() || cin.bad()) // fatal states, e.g., control-d
 		{
 			cerr << "BAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted." << endl;
@@ -50,7 +59,7 @@ int checkType(string currency) {
 int main(){
 		
 	
-	double total = 0;
+	/*double total = 0;
 	int dollars = 0;
 	int fives = 0;
 	int tens = 0;
@@ -59,37 +68,39 @@ int main(){
 	int quarters = 0;
 	int dimes = 0;
 	int nickles = 0;
-	int pennies = 0;
+	int pennies = 0;*/
 	
-	//gets input for the ammount of bills/coins and checks to see if input type is correct 
-	hundreds = checkType("$100 bills");
-	total = hundreds * 100;
+	//gets input for the ammount of bills/coins and checks to see if input type is correct then adds the ammount to  the total
+	int hundreds = checkType("$100 bills");
+	double total = hundreds * 100;
 	
-	twenties = checkType("$20 bills");
+	int twenties = checkType("$20 bills");
 	total += twenties * 20;
 	
-	tens = checkType("$10 bills ");
+	int tens = checkType("$10 bills ");
 	total += tens * 10;
 	
-	fives = checkType("$5 bills");
+	int fives = checkType("$5 bills");
 	total += fives * 5;
 	
-	dollars = checkType("$1 bills");
+	int dollars = checkType("$1 bills");
 	total += dollars * 1;
 	
-	quarters = checkType("quarters");
+	int quarters = checkType("quarters");
 	total += quarters * .25;
 	
-	dimes = checkType("dimes");
+	int dimes = checkType("dimes");
 	total += dimes * .10;
 	
-	nickles = checkType("nickles");
+	int nickles = checkType("nickles");
 	total += nickles * .05;
 	
-	pennies = checkType("pennies");
+	int pennies = checkType("pennies");
 	total += pennies * .01;
+	
+	
 	cout << "You have a total of $" << total << endl;
 	//cout << pennies << nickles << dimes << quarters  << hundreds  << twenties <<tens << fives << dollars << endl;
-	
+	return 0;
 	
 }
