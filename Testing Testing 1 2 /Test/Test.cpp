@@ -55,9 +55,7 @@ int checkType(string currency) {
 	
 }
 
-
-int main(){
-		
+void total () {
 	
 	/*double total = 0;
 	int dollars = 0;
@@ -99,8 +97,15 @@ int main(){
 	total += pennies * .01;
 	
 	
-	cout << "You have a total of $" << total << endl;
-	//cout << pennies << nickles << dimes << quarters  << hundreds  << twenties <<tens << fives << dollars << endl;
+	cout << "You have a total of $" << total << endl;	
+}
+
+
+
+
+int main(){
+	
+	total();
 	return 0;
 	
 }
