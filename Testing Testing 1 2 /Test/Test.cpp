@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
 	cout << "Hello World!" << endl;
-	string s;
+	/*string s;
 	s = "#";
 	
 	//for loop 
@@ -32,7 +32,7 @@ int main(){
 			count--;
 		}
 		
-	}while(count >= 0); 
+	}while(count >= 0); */
 	
 	
 	double total = 0;
@@ -42,7 +42,7 @@ int main(){
 	int pennies = 0;
 	cin.clear();
 	cout << "Please enter the number of quarters you have: " ;
-	cin >> quarters;
+	/* cin >> quarters;
 	
 	cin.clear();
 	cout << "Please enter the number of dimes you have: " ;
@@ -54,13 +54,13 @@ int main(){
 
 	cin.clear();
 	cout << "Please enter the number of pennies you have: " ;
-	cin >> pennies;
+	cin >> pennies; */
 	
-	/*while (true) {
+	while (true) {
 		
 		try{
 			cin >> quarters;
-			if (cin.fail())
+			if (cin.fail())  //catches chars 
 			{
 				throw 1;
 			}
@@ -74,16 +74,13 @@ int main(){
 			cin.clear();
 			cout << "Please enter the number of quarters you have: " << endl;
 			cin >> quarters;
-			cout << quarters;
 		}						
-	}*/
-	
-	cout << quarters << " " <<  dimes << " " << nickles << " " <<pennies << endl;
-	
+	}
+		
 	total = quarters * .25;
-	total += (dimes * .10);
-	total += nickles * .05;
-	total += pennies * .01;
+	//total += (dimes * .10);
+	//total += nickles * .05;
+	//total += pennies * .01;
 	cout << "You have a total of $" << total << endl;
 	
 	
