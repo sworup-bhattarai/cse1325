@@ -182,7 +182,7 @@ int main(){
 	double totalMoney;
 	int menuChoice;
 	
-	cout << "HELLO AND WELCOMe TO THE BUGGY BANK" << endl;
+	cout << "HELLO AND WELCOME TO THE BUGGY BANK" << endl;
 	cout << "Where we can guarentee that you will loose your money to some kind of bug or another!\n" << endl;
 	
 	while (true){
