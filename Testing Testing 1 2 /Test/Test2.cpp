@@ -1,28 +1,21 @@
-#include <array>
-#include <iostream>
-#include <string_view>
-#include <tuple>
-#include <type_traits>
- 
-namespace a::b::c
+//#include <gtkmm>
+#include <gtk/gtk.h>
+
+class MyWindow : public Gtk::Window
 {
-    inline constexpr std::string_view str{ "hello" };
+public:
+  MyWindow();
+};
+
+MyWindow::MyWindow()
+{
+  set_title("Basic application");
+  set_default_size(200, 200);
 }
- 
-template <class... T>
-std::tuple<std::size_t, std::common_type_t<T...>> sum(T... args)
+
+int main(int argc, char* argv[])
 {
-    return { sizeof...(T), (args + ...) };
-}
- 
-int main()
-{
-    auto [iNumbers, iSum]{ sum(1, 2, 3) };
-    std::cout << a::b::c::str << ' ' << iNumbers << ' ' << iSum << '\n';
- 
-    std::array arr{ 1, 2, 3 };
- 
-    std::cout << std::size(arr) << '\n';
- 
-    return 0;
+  auto app = Gtk::Application::create("org.gtkmm.examples.base");
+
+  return app->make_window_and_run<MyWindow>(argc, argv);
 }
