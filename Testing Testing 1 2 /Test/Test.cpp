@@ -7,7 +7,7 @@ int checkTypeMenu();
 int openMenu(){
 	int pick;
 	
-	cout << "Please type the number corresponding with what you would like to do: \n\n" << "1) Deposit \n2) Donate All My Money \n3) Check Balence \n4) EXIT \n" << endl;
+	cout << "Please type the number corresponding with what you would like to do: \n\n" << "1) Deposit Money \n2) Donate All My Money \n3) Check Balence \n4) EXIT \n" << endl;
 	cout << "----------------------------------------\n" << endl;
 	pick = checkTypeMenu();
 	return pick;
@@ -22,7 +22,17 @@ int checkTypeMenu() {
 	
 	while (true) {
 		
-		
+			
+	/*double total = 0;
+	int dollars = 0;
+	int fives = 0;
+	int tens = 0;
+	int twenties = 0;
+	int hundreds = 0;
+	int quarters = 0;
+	int dimes = 0;
+	int nickles = 0;
+	int pennies = 0;*/
 		//checks to see if what was entered is a number or not
 		if(cin >> quantity) 
 		{
@@ -30,7 +40,7 @@ int checkTypeMenu() {
 			//checks to makesure the number is not negative 
 			if (quantity < 0 || quantity > 4)
 			{
-				cout << "Enter a number from 1-3\n" << endl;
+				cout << "Enter a number from 1-4\n" << endl;
 				cin.clear(); // clear the fail state
 				cin.ignore(99999,'\n'); // clear the buffer
 			}
@@ -42,6 +52,8 @@ int checkTypeMenu() {
 			}
 			else
 			{
+			cin.clear(); // clear the fail state
+			cin.ignore(99999,'\n'); // clear the buffer	
 			return (int) quantity;
 			}
 		}
@@ -122,24 +134,11 @@ int checkTypeCash(string currency) {
 		}
 
 
-	}	
-
-	
-	
+	}		
 }
 
 double total () {
-	
-	/*double total = 0;
-	int dollars = 0;
-	int fives = 0;
-	int tens = 0;
-	int twenties = 0;
-	int hundreds = 0;
-	int quarters = 0;
-	int dimes = 0;
-	int nickles = 0;
-	int pennies = 0;*/
+
 	
 	//gets input for the ammount of bills/coins and checks to see if input type is correct then adds the ammount to  the total
 	int hundreds = checkTypeCash("$100 bills");
@@ -170,7 +169,7 @@ double total () {
 	total += pennies * .01;
 	
 	
-	cout << "You are depositing: $" << total << "\n" <<endl;
+	cout << "You are depositing: $" << std::setprecision(2) << std::fixed << total << "\n" <<endl;
 	return total;
 }
 
@@ -179,7 +178,7 @@ double total () {
 
 int main(){
 	
-	double totalMoney;
+	double totalMoney = 452.30;
 	int menuChoice;
 	
 	cout << "HELLO AND WELCOME TO THE BUGGY BANK" << endl;
@@ -192,14 +191,20 @@ int main(){
 			totalMoney += total();
 			cout << "You have a total of $" << std::setprecision(2) << std::fixed << totalMoney << "\n\n"<< endl;
 		}
+		else if (menuChoice == 2){
+			if (totalMoney == 0){
+				cout << "Youre flat broke! \nNo money at all \n$" << totalMoney << endl;
+			}
+			else{
+				cout << "You have $" << std::setprecision(2) << std::fixed << totalMoney << " in your accout" << endl;
+			}
+		}
 		else if (menuChoice == 3){
-			totalMoney = 0;
+			totalMoney = 0; //removes all the money from the bank
 			cout << "Thank you for Donating all of your money! \nYou have $" << std::setprecision(2) << std::fixed << totalMoney << " left." << endl;
 		}
-		else if (menuChoice == 2){
-			cout << "You have $" << std::setprecision(2) << std::fixed << totalMoney << " left." << endl;
-		}
 		else if (menuChoice == 4){
+			cout << "Thank you for your patronage have a good day!!" << endl;
 			break;
 		}
 	}
