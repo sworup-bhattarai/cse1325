@@ -4,6 +4,5 @@ using namespace std;
 
 int main(){
 
-cout << ".........................\n .............................\n.........DUST............\nYa, I got nothin." << endl;
-
-}
+cout << ".........................\n.........DUST............\n.........................\nYa, I got nothin." << endl;
+return 	0;
