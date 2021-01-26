@@ -14,6 +14,6 @@ Pet::Pet( std::string n , double a , Type p) : _name{n} , _age{a} , pet{p}
 
 std::string Pet::to_string() 
 {
-	return /*std::to_string(_name)*/ + " is a " + ::to_string(pet) + " age " + std::to_string(_age);
+	return _name + " is a " + ::to_string(pet) + " age " + std::to_string(_age);
 	
 }
