@@ -9,7 +9,7 @@ std::string to_string(Type pet)
 
 Pet::Pet( std::string n , double a , Type p) : _name{n} , _age{a} , pet{p} 
 {
-
+	//std::cout << q ;
 }
 
 std::string Pet::to_string() 
