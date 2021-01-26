@@ -12,9 +12,8 @@ std::string to_string(Type pet);
 class Pet {
 	int _age;
 	Type pet;
-	sdt::string _name;
-
-public:
+	std::string _name;
+  public:
 	Pet(std::string _name , int _age , Type p);
 	std::string to_string();
 
