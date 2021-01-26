@@ -1,14 +1,15 @@
 #include <iostream>
 #include <iomanip>
-using namespace std;
+
+
 
 int checkTypeMenu();
 
 int openMenu(){
 	int pick;
 	
-	cout << "Please type the number corresponding with what you would like to do: \n\n" << "1) Deposit Money \n2) Donate All My Money \n3) Check Balence \n4) EXIT \n" << endl;
-	cout << "----------------------------------------\n" << endl;
+	std::cout << "Please type the number corresponding with what you would like to do: \n\n" << "1) Deposit Money \n2) Donate All My Money \n3) Check Balence \n4) EXIT \n" << std::endl;
+	std::cout << "----------------------------------------\n" << std::endl;
 	pick = checkTypeMenu();
 	return pick;
 	
@@ -17,7 +18,7 @@ int openMenu(){
 
 
 int checkTypeMenu() {
-	double quantity;
+	double quantity;		
 	int qcheck;
 	
 	while (true) {
@@ -34,41 +35,41 @@ int checkTypeMenu() {
 	int nickles = 0;
 	int pennies = 0;*/
 		//checks to see if what was entered is a number or not
-		if(cin >> quantity) 
+		if(std::cin >> quantity) 
 		{
 			qcheck = quantity;
 			//checks to makesure the number is not negative 
 			if (quantity < 0 || quantity > 4)
 			{
-				cout << "Enter a number from 1-4\n" << endl;
-				cin.clear(); // clear the fail state
-				cin.ignore(99999,'\n'); // clear the buffer
+				std::cout << "Enter a number from 1-4\n" << std::endl;
+				std::cin.clear(); // clear the fail state
+				std::cin.ignore(99999,'\n'); // clear the buffer
 			}
 			else if (qcheck != quantity)
 			{
-				cout << "Enter Please enter whole numbers\n" << endl;
-				cin.clear(); // clear the fail state
-				cin.ignore(99999,'\n'); // clear the buffer
+				std::cout << "Enter Please enter whole numbers\n" << std::endl;
+				std::cin.clear(); // clear the fail state
+				std::cin.ignore(99999,'\n'); // clear the buffer
 			}
 			else
 			{
-			cin.clear(); // clear the fail state
-			cin.ignore(99999,'\n'); // clear the buffer	
+			std::cin.clear(); // clear the fail state
+			std::cin.ignore(99999,'\n'); // clear the buffer	
 			return (int) quantity;
 			}
 		}
 		
 		//no idea what this even is 
-		else if (cin.eof() || cin.bad()) // fatal states, e.g., control-d
+		else if (std::cin.eof() || std::cin.bad()) // fatal states, e.g., control-d
 		{
-			cerr << "BAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted." << endl;
+			std::cerr << "BAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted." << std::endl;
 			exit(-1);
 		}
-		else if (cin.fail())  //catches chars 
+		else if (std::cin.fail())  //catches chars 
 		{
-			cin.clear(); // clear the fail state
-			cin.ignore(99999,'\n'); // clear the buffer
-			cout << "Enter number not letters" << endl;
+			std::cin.clear(); // clear the fail state
+			std::cin.ignore(99999,'\n'); // clear the buffer
+			std::cout << "Enter number not letters" << std::endl;
 
 		}
 		else 
@@ -85,29 +86,29 @@ int checkTypeMenu() {
 
 
 //Inputs and checks if the value entered is an int or not and returns it to be calculated 
-int checkTypeCash(string currency) {
+int checkTypeCash(std::string currency) {
 	double quantity;
 	int qcheck;
 	
 	while (true) {
-		cout << "Please enter the number of "<< currency << " you have : " ;
+		std::cout << "\nPlease enter the number of "<< currency << " you have : " ;
 		
 		//checks to see if what was entered is a number or not
-		if(cin >> quantity) 
+		if(std::cin >> quantity) 
 		{
 			qcheck = quantity;
 			//checks to makesure the number is not negative 
 			if (quantity < 0 )
 			{
-				cout << "Enter a number grater than 0\n" << endl;
+				std::cout << "Enter a number grater than 0\n" << std::endl;
 			}
 			else if (quantity > 100 )
 			{
-				cout << "Please enter a more believable quantity" << endl;
+				std::cout << "Please enter a more believable quantity" << std::endl;
 			}
 			else if (qcheck != quantity)
 			{
-				cout << "Enter Please enter whole numbers\n" << endl;
+				std::cout << "Enter Please enter whole numbers\n" << std::endl;
 			}
 			else
 			{
@@ -116,16 +117,16 @@ int checkTypeCash(string currency) {
 		}
 		
 		//no idea what this even is 
-		else if (cin.eof() || cin.bad()) // fatal states, e.g., control-d
+		else if (std::cin.eof() || std::cin.bad()) // fatal states, e.g., control-d
 		{
-			cerr << "BAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted." << endl;
+			std::cerr << "BAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted." << std::endl;
 			exit(-1);
 		}
-		else if (cin.fail())  //catches chars 
+		else if (std::cin.fail())  //catches chars 
 		{
-			cin.clear(); // clear the fail state
-			cin.ignore(99999,'\n'); // clear the buffer
-			cout << "Enter number not letters" << endl;
+			std::cin.clear(); // clear the fail state
+			std::cin.ignore(99999,'\n'); // clear the buffer
+			std::cout << "Enter number not letters" << std::endl;
 
 		}
 		else 
@@ -169,7 +170,7 @@ double total () {
 	total += pennies * .01;
 	
 	
-	cout << "You are depositing: $" << std::setprecision(2) << std::fixed << total << "\n" <<endl;
+	std::cout << "\nYou are depositing: $" << std::setprecision(2) << std::fixed << total << "\n" <<std::endl;
 	return total;
 }
 
@@ -181,30 +182,30 @@ int main(){
 	double totalMoney = 452.30;
 	int menuChoice;
 	
-	cout << "HELLO AND WELCOME TO THE BUGGY BANK" << endl;
-	cout << "Where we can guarentee that you will loose your money to some kind of bug or another!\n" << endl;
+	std::cout << "HELLO AND WELCOME TO THE BUGGY BANK" << std::endl;
+	std::cout << "Where we can guarentee that you will loose your money to some kind of bug or another!\n" << std::endl;
 	
 	while (true){
 		
 		menuChoice = openMenu();
 		if (menuChoice == 1){
 			totalMoney += total();
-			cout << "You have a total of $" << std::setprecision(2) << std::fixed << totalMoney << "\n\n"<< endl;
+			std::cout << "You have a total of $" << std::setprecision(2) << std::fixed << totalMoney << "\n\n"<< std::endl;
 		}
 		else if (menuChoice == 2){
 			if (totalMoney == 0){
-				cout << "Youre flat broke! \nNo money at all \n$" << totalMoney << endl;
+				std::cout << "\nYou're flat broke! \nNo money at all \n$" << totalMoney << std::endl;
 			}
 			else{
-				cout << "You have $" << std::setprecision(2) << std::fixed << totalMoney << " in your accout" << endl;
+				std::cout << "\nYou have $" << std::setprecision(2) << std::fixed << totalMoney << " in your account" << std::endl;
 			}
 		}
 		else if (menuChoice == 3){
 			totalMoney = 0; //removes all the money from the bank
-			cout << "Thank you for Donating all of your money! \nYou have $" << std::setprecision(2) << std::fixed << totalMoney << " left." << endl;
+			std::cout << "\nThank you for Donating all of your money! \n\nYou have $" << std::setprecision(2) << std::fixed << totalMoney << " left." << std::endl;
 		}
 		else if (menuChoice == 4){
-			cout << "Thank you for your patronage have a good day!!" << endl;
+			std::cout << "\nThank you for your patronage have a good day!!" << std::endl;
 			break;
 		}
 	}
