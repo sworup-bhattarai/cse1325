@@ -10,11 +10,11 @@ enum Type {IGUANA, BAT, WHALE, KOOKABURRA};
 std::string to_string(Type pet);
 
 class Pet {
-	int _age;
+	double _age;
 	Type pet;
 	std::string _name;
   public:
-	Pet(std::string _name , int _age , Type p);
+	Pet(std::string _name , double _age , Type p);
 	std::string to_string();
 
 };

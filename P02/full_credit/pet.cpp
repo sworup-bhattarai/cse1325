@@ -7,7 +7,7 @@ std::string to_string(Type pet)
 	return q[pet];
 }
 
-Pet::Pet( std::string n , int a , Type p) : _name{n} , _age{a} , pet{p} 
+Pet::Pet( std::string n , double a , Type p) : _name{n} , _age{a} , pet{p} 
 {
 
 }
