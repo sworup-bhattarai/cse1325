@@ -6,7 +6,7 @@
 #include <vector>
 #include <map>
 
-enum Type {IGUANA, BAT, WHALE, KOOKABURRA};
+enum class Type {IGUANA, BAT, WHALE, KOOKABURRA};
 std::string to_string(Type pet);
 
 class Pet {
