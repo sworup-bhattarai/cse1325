@@ -2,7 +2,6 @@ CXXFLAGS = --std=c++17
 run: pets
 	$ ./pets
 	
-	
 pets: main.o pet.o *.h
 	$(CXX) $(CXXFLAGS) main.o pet.o -o pets
 	
