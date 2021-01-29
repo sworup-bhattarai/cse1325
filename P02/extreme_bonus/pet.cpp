@@ -7,10 +7,9 @@ std::string to_string(Type pet)
 	return q[pet];
 }
 
-Pet::Pet( std::string n , double a , Type p, int l) : _name{n} , _age{a} , pet{p} /*, _pet_lifespan{l}*/
+Pet::Pet( std::string n , double a , Type p) : _name{n} , _age{a} , pet{p} 
 {
-	
-	if (::to_string(pet) == "Iguana"){
+	/*if (::to_string(pet) == "Iguana"){
 		_pet_lifespan = v[0];
 		human_years();	
 	}
@@ -25,8 +24,44 @@ Pet::Pet( std::string n , double a , Type p, int l) : _name{n} , _age{a} , pet{p
 	else if (::to_string(pet) == "Kookaburra"){
 		_pet_lifespan = v[3];
 		human_years();	
+	}*/
+	
+	
+	
+	/*if (::to_string(pet) == _t[0]){
+		_pet_lifespan = _v[0];
+		human_years();	
+	}
+	else if (::to_string(pet) == _t[1]){
+		_pet_lifespan = _v[1];
+		human_years();	
+	}
+	else if (::to_string(pet) == _t[2]){
+		_pet_lifespan = _v[2];
+		human_years();	
+	}
+	else if (::to_string(pet) == _t[3]){
+		_pet_lifespan = _v[3];
+		human_years();	
+	}*/
+	
+	
+	while (true) {
+		if (::to_string(pet) == _t[_count]){
+			_pet_lifespan = _v[_count];
+			human_years();
+			break;
+		}
+		else if (_count < 4){
+			_count ++;
+		}
+		else{
+		std::cerr << "Something went worng " << std::endl;
+		break;
+		}
 	}
 	
+
 }
 
 std::string Pet::to_string() 

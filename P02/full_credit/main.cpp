@@ -1,10 +1,10 @@
 #include "pet.h"
 
 int main(){
-	Pet one{"Charlie", 25 , Type:: IGUANA};
-	Pet two{"Blinky", 23 , Type::BAT};
-	Pet three{"Bluie", 24 , Type::WHALE};
-	Pet four{"Chester", 25 , Type::KOOKABURRA};
+	Pet one{"Charlie", 12 , Type:: IGUANA};
+	Pet two{"Blinky", 19 , Type::BAT};
+	Pet three{"Bluie", 124 , Type::WHALE};
+	Pet four{"Chester", 2 , Type::KOOKABURRA};
 	std::cout << one.to_string() << std::endl;
 	std::cout << two.to_string() << std::endl;
 	std::cout << three.to_string() << std::endl;

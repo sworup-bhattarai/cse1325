@@ -6,10 +6,10 @@ int main(){
 	
 	std::vector<int> v;
 	int o, t, h, f;
-	Pet one{"Charlie" , 12 , Type::IGUANA, 20};
-	Pet two{"Blinky" , 30 , Type::BAT, 30};
-	Pet three{"Bluie" , 150 , Type::WHALE, 200};
-	Pet four{"Chester" , 5 , Type::KOOKABURRA , 15};
+	Pet one{"Charlie" , 12 , Type::IGUANA};
+	Pet two{"Blinky" , 30 , Type::BAT};
+	Pet three{"Bluie" , 150 , Type::WHALE};
+	Pet four{"Chester" , 5 , Type::KOOKABURRA };
 	o = one.human_years();  
 	v.push_back(o);  		//adds age to array
 	t = two.human_years();
