@@ -13,11 +13,12 @@ class Pet {
 	double _age;
 	Type pet;
 	std::string _name;
-	int pet_lifespan;
+	int _pet_lifespan;
+	std::vector<int> v = {20,30,200,15};
 	double _human_equivalent_years;
   public:
 	Pet(std::string _name , double _age , Type p, int pet_lifespan );
-	void human_years();
+	int human_years();
 	std::string to_string();
 
 };

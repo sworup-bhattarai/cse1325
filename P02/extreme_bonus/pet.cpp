@@ -7,21 +7,38 @@ std::string to_string(Type pet)
 	return q[pet];
 }
 
-Pet::Pet( std::string n , double a , Type p, int l) : _name{n} , _age{a} , pet{p} , pet_lifespan{l}
+Pet::Pet( std::string n , double a , Type p, int l) : _name{n} , _age{a} , pet{p} /*, _pet_lifespan{l}*/
 {
-
+	
+	if (::to_string(pet) == "Iguana"){
+		_pet_lifespan = v[0];
+		human_years();	
+	}
+	else if (::to_string(pet) == "Bat"){
+		_pet_lifespan = v[1];
+		human_years();	
+	}
+	else if (::to_string(pet) == "Whale"){
+		_pet_lifespan = v[2];
+		human_years();	
+	}
+	else if (::to_string(pet) == "Kookaburra"){
+		_pet_lifespan = v[3];
+		human_years();	
+	}
+	
 }
 
 std::string Pet::to_string() 
 {
-	human_years();
+	
 	return _name + " is a " + ::to_string(pet) + " age " + std::to_string(_age) + " or " + std::to_string(_human_equivalent_years) + " in human-equivalent years.\n";
 	
 }
-void Pet::human_years()
+int Pet::human_years()
 {
 
-	_human_equivalent_years  = (_age * 80) / pet_lifespan;
+	return _human_equivalent_years  = (_age * 80) / _pet_lifespan;
 	 
 	
 }
