@@ -43,13 +43,13 @@ int main(){
 	
 	
 	
-	o = one.human_years() + .001;     //literly the WORST way of doing this  
+	o = one.human_years() + 1;     //literly the WORST way of doing this  
 	v.push_back(o);  		//adds age to array
-	t = two.human_years() + .002;
+	t = two.human_years() + 2;
 	v.push_back(t);
-	h = three.human_years() + .003;
+	h = three.human_years() + 3;
 	v.push_back(h);
-	f = four.human_years() + .004;
+	f = four.human_years() + 4;
 	v.push_back(f);
 	std::sort(v.begin(), v.end()); //sorts array
 	for (int i = 0; i < v.size(); i++){
