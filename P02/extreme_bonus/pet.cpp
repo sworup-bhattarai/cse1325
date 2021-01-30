@@ -3,7 +3,8 @@
 
 std::string to_string(Type pet) 
 {
-	std::map <Type, std::string> q = {{Type:: IGUANA , "Iguana"},{Type::BAT, "Bat"},{Type::WHALE , "Whale"},{Type::KOOKABURRA , "Kookaburra"}};
+	std::map <Type, std::string> q = { {Type:: SHARK , "Greenland Shark"},{Type::BAT, "Bat"},
+					    {Type::WHALE , "Whale"},{Type::KOOKABURRA , "Kookaburra"}};
 	return q[pet];
 }
 
@@ -67,10 +68,11 @@ Pet::Pet( std::string n , double a , Type p) : _name{n} , _age{a} , pet{p}
 std::string Pet::to_string() 
 {
 	
-	return _name + " is a " + ::to_string(pet) + " age " + std::to_string(_age) + " or " + std::to_string(_human_equivalent_years) + " in human-equivalent years.\n";
+	return _name + " is a " + ::to_string(pet) + " age " + std::to_string(_age) + 
+		" or " + std::to_string(_human_equivalent_years) + " in human-equivalent years.\n";
 	
 }
-int Pet::human_years()
+double Pet::human_years()
 {
 
 	return _human_equivalent_years  = (_age * 80) / _pet_lifespan;

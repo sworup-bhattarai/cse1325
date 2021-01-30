@@ -4,6 +4,59 @@
 #include <string>
 #include <bits/stdc++.h>
 
+int checkType() {
+	double quantity;		
+	int qcheck;
+	while (true) {
+
+		//checks to see if what was entered is a number or not
+		if(std::cin >> quantity) 
+		{
+			qcheck = quantity;
+			//checks to makesure the number is not negative 
+			if (quantity < 0 || quantity > 400)
+			{
+				std::cout << "Ya there's no way your pet is that old try again.\nEnter it's age:" << std::endl;
+				std::cin.clear(); // clear the fail state
+				std::cin.ignore(99999,'\n'); // clear the buffer
+			}
+			else if (qcheck != quantity)
+			{
+				std::cout << "Enter Please enter whole numbers\n" << std::endl;
+				std::cin.clear(); // clear the fail state
+				std::cin.ignore(99999,'\n'); // clear the buffer
+			}
+			else
+			{	
+			return (int) quantity;
+			}
+		}
+		
+		//no idea what this even is 
+		else if (std::cin.eof() || std::cin.bad()) // fatal states, e.g., control-d
+		{
+			std::cerr << "\nBAD DON'T DO THAT!!!!" << "\nInput terminated. Aborted.\n" << std::endl;
+			exit(-1);
+		}
+		else if (std::cin.fail())  //catches chars 
+		{
+			std::cin.clear(); // clear the fail state
+			std::cin.ignore(99999,'\n'); // clear the buffer
+			std::cout << "Enter number not letters" << std::endl;
+
+		}
+		else 
+		{
+			return quantity;
+		}
+
+
+	}	
+
+	
+	
+}
+
 int main(){
 	
 	std::vector<double> v;
@@ -14,36 +67,31 @@ int main(){
 	
 	
 	
-	std::cout << ("Please enter the name of your Iguana: ");
+	std::cout << ("Please enter the name of your Greenland Shark: ");
 	std::getline(std::cin , name);
-	std::cout << ("Please enter the age of your Iguana: ");
-	std::cin >> age;
-	q.push_back(Pet{name , age , Type::IGUANA});
-	//Pet one{name , age , Type::IGUANA};
+	std::cout << ("Please enter the age of your Greenland Shark: ");
+	age = checkType();
+	q.push_back(Pet{name , age , Type::SHARK});
 	std::cin.ignore(99999,'\n'); // clear the buffer
 	
 	std::cout << ("Please enter the name of your Bat: ");
 	std::getline(std::cin , name); 
 	std::cout << ("Please enter the age of your Bat: ");
-	std::cin >> age;
+	age = checkType();
 	q.push_back(Pet{name , age , Type::BAT});
-	//Pet two{name , age , Type::BAT};
 	std::cin.ignore(99999,'\n'); // clear the buffer
 	
 	std::cout << ("Please enter the name of your Whale: ");
 	std::getline(std::cin , name);
 	std::cout << ("Please enter the age of your Whale: ");
-	std::cin >> age;
+	age = checkType();
 	q.push_back(Pet{name , age , Type::WHALE});
-	//Pet three{name , age , Type::WHALE};
 	std::cin.ignore(99999,'\n'); // clear the buffer
-	
 	std::cout << ("Please enter the name of your Kookaburra: ");
 	std::getline(std::cin , name);	
 	std::cout << ("Please enter the age of your Kookaburra: ");
-	std::cin >> age;
+	age = checkType();
 	q.push_back(Pet{name , age , Type::KOOKABURRA});
-	//Pet four{name , age , Type::KOOKABURRA };
 	std::cin.ignore(99999,'\n'); // clear the buffer
 	
 	
