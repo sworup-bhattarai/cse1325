@@ -9,5 +9,6 @@ int main(){
 	std::cout << two.to_string() << std::endl;
 	std::cout << three.to_string() << std::endl;
 	std::cout << four.to_string() << std::endl;
+	
 }
 

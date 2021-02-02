@@ -13,3 +13,4 @@ pet.o: pet.cpp *.h
 
 clean:       
 	rm -f *.o *.gch *~ a.out pets
+	
