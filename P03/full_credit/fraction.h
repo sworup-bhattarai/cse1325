@@ -5,20 +5,22 @@
 #include <istream>
 
 class Fraction{
-	int _n, _d;
-	reduce();
-  public;
-  	void Fraction(int numeerator = 0 , int denominator = 0);
-  	int value();
-	Fraction operator-();
-	Fraction operator+(Fraction& rhs);
-	Fraction operator-(Fraction& rhs);
-	Fraction operator*(Fraction& rhs);
-	Fraction operator/(Fraction& rhs);
+  public:
+  	Fraction(int n  , int d );
+  	//int value();
+	//Fraction operator-();
+	//Fraction operator+(Fraction& rhs);
+	//Fraction operator-(Fraction& rhs);
+	//Fraction operator*(Fraction& rhs);
+	//Fraction operator/(Fraction& rhs);
 	
-	friend ostream& operator<<(ostream& m, Fraction&);
-	friend istream& operator<<(istream& m, Fraction&);
-	friend bool operator!=(const Fraction& lhs, const Fraction& rhs);
+	friend std::ostream& operator<<(std::ostream& m, Fraction& );
+	//friend istream& operator>>(istream& m, Fraction&);
+	//friend bool operator!=(const Fraction& lhs, const Fraction& rhs);
+  private:
+  	int _n;
+	int _d;
+	//reduce();
 	
 };
 
