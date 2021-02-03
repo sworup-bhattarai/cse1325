@@ -27,7 +27,7 @@ int main() {
         result |= vector;
     }
     
-   /* 
+    
    
    // Test input
     std::string sfi{"-13/255"};
@@ -39,7 +39,7 @@ int main() {
         result |= vector;
     }
     vector <<= 1;
-
+/*
     // Reduce testing    
     // Test reduce() handling of a negative denominator
     if (f2 != Fraction{-3, 4}) {
