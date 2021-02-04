@@ -24,7 +24,7 @@ class Fraction{
   	int _n;
 	int _d;
 	char _v;
-	//reduce();
+	void reduce();
 	
 };
 

@@ -27,8 +27,7 @@ int main() {
         result |= vector;
     }
     
-    
-   
+ 
    // Test input
     std::string sfi{"-13/255"};
     std::istringstream iss{sfi};
@@ -39,7 +38,7 @@ int main() {
         result |= vector;
     }
     vector <<= 1;
-/*
+ 
     // Reduce testing    
     // Test reduce() handling of a negative denominator
     if (f2 != Fraction{-3, 4}) {
@@ -52,7 +51,7 @@ int main() {
         result |= vector;
     }
     vector <<= 1;
-
+/*
     // Negation testing
     // Test negation of a positive fraction
     if (-f1 != Fraction{-1, 2}) {
@@ -97,11 +96,11 @@ int main() {
     //
     // End Testing
     //
-    
+    */
     // Report the test results to the user and OS
     if(result) std::cerr << "\nFAILED - result is " << std::hex << std::showbase << result << std::endl;
     return result;
     
     
-    */
+    
 }
