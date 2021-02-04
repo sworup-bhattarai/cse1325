@@ -93,7 +93,7 @@ Fraction operator+(const Fraction& lhs, const Fraction& rhs)
 Fraction operator-(const Fraction& lhs, const Fraction& rhs) 
 {
 	int c = rhs._n * -1;
-	Fraction f{lhs._n * lhs._d + rhs._d * c, lhs._d * rhs._d };
+	Fraction f{lhs._n * rhs._d + lhs._d * c, lhs._d * rhs._d };
 	//rhs(a/b) + (c/d) = (ad+bc)/bd;
 	return f;
 }

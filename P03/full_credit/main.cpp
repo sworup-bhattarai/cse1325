@@ -5,7 +5,7 @@
 int main() {
 	Fraction f , e , j;
 	std::string sfr;
-	std::cout << "Please enter a fractions: ";
+	std::cout << "Please enter two fractions: ";
 	std::cin >> f >> e;
 	
 	j = -f;
@@ -15,9 +15,9 @@ int main() {
 	j = -e;
 	oss << "The inverse of : " << e << " is: " << j << std::endl;
 	j = f*e;
-	oss << e << " * " << f << " is: " << j << std::endl;
-	j = f/e;     // need to fix f and e are backwards TODO
-	oss << e << " / " << f << " is: " << j << std::endl; 
+	oss << f << " * " << e << " is: " << j << std::endl;
+	j = f/e;
+	oss << f << " / " << e << " is: " << j << std::endl; 
 	j = f+e;
 	oss << f << " + " << e << " is: " << j << std::endl;
 	j = f-e;
