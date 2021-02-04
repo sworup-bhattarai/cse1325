@@ -72,14 +72,14 @@ int main() {
         std::cerr << "FAIL: Addition\n";
         result |= vector;
     }
-/*
+
 
     // Test subtraction
     if (f1-f3 != Fraction{5, 6}) {
         std::cerr << "FAIL: Subtraction\n";
         result |= vector;
     }
-
+/*
     // Test multiplication
     if (f2*f3 != Fraction{3, 12}) {
         std::cerr << "FAIL: Multiplication\n";

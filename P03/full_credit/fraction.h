@@ -11,8 +11,8 @@ class Fraction{
   	Fraction(int n , int d );
   	Fraction();
 	Fraction operator-();
-	Fraction operator+(Fraction& rhs);
-	//Fraction operator-(Fraction& rhs);
+	friend Fraction operator+(const Fraction& lhs, const Fraction& rhs);
+	friend Fraction operator-(const Fraction& lhs, const Fraction& rhs);
 	//Fraction operator*(Fraction& rhs);
 	//Fraction operator/(Fraction& rhs);
 	
@@ -22,7 +22,6 @@ class Fraction{
   private:
   	int _n;
 	int _d;
-	char _v;
 	void reduce();
 	
 };

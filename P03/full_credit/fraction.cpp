@@ -1,26 +1,32 @@
 #include "fraction.h"
 
+Fraction::Fraction( int n = 0 , int d = 1) :  _n{n}, _d{d}
+{
+
+	reduce();
+}
+Fraction::Fraction( ) 
+{
+	_n = 0;
+	_d = 1;
+	reduce();
+}
+
 Fraction Fraction::operator-()
 {
 	
-	if (_d > 0 && _n > 0)
+	Fraction f{_n , _d};
+	if (f._d > 0 && f._n > 0)
 	{
-		_n *= -1;
+		f._n *= -1;
 	}
-	else if (_d > 0 && _n < 0 )
+	else if (f._d > 0 && f._n < 0 )
 	{
-		_n = abs(_n);
+		f._n = abs(f._n);
 	}
-	return *this;	
+	return f;	
 }
-Fraction operator+(Fraction& rhs)
-{
-	_n = (rhs._n * _d + rhs._d * _n);
-	_d = (_d * rhs._d );
-	
-	//rhs(a/b) + (c/d) = (ad+bc)/bd;
-	
-}
+
 void Fraction::reduce()
 {
 	if (_d < 0 && _n < 0 )
@@ -32,27 +38,34 @@ void Fraction::reduce()
 	{
 		_n *= -1;
 		_d = abs(_d);
+	};
+	if (_n < 0)
+	{
+		_n = abs(_n);
+		for (int i = _d * _n; i > 1; i--) 
+		{  
+			if ((_d % i == 0) && (_n % i == 0)) 
+	      	  	{  
+	    			_d /= i;  
+				_n /= i;  
+			}  
+		  
+	 	}
+	 	_n *= -1;
 	}
-	for (int i = _d * _n; i > 1; i--) 
-        {  
-        	if ((_d % i == 0) && (_n % i == 0)) 
-      	  	{  
-    			_d /= i;  
-        		_n /= i;  
-		}  
-          
- 	}
+	else 
+	{
+		for (int i = _d * _n; i > 1; i--) 
+		{  
+			if ((_d % i == 0) && (_n % i == 0)) 
+	      	  	{  
+	    			_d /= i;  
+				_n /= i;  
+			}  
+		  
+	 	}
+	 }
 }
-Fraction::Fraction( int n = 0 , int d = 1) :  _n{n}, _d{d}
-{
-	reduce();
-}
-Fraction::Fraction( ) 
-{
-	_n = 0;
-	_d = 1;
-}
-
 
 std::ostream& operator<<(std::ostream& m, Fraction& fraction)
 {
@@ -62,10 +75,26 @@ std::ostream& operator<<(std::ostream& m, Fraction& fraction)
 
 std::istream& operator>>(std::istream& is, Fraction& fraction)
 {
+	char v;
 	is >> fraction._n;
-	is >> fraction._v;
+	is >> v;
 	is >> fraction._d;
 	return is;
+}
+
+Fraction operator+(const Fraction& lhs, const Fraction& rhs) 
+{
+
+	Fraction f{rhs._n * lhs._d + rhs._d * lhs._n, lhs._d * rhs._d };;
+	//rhs(a/b) + (c/d) = (ad+bc)/bd;
+	return f;
+}
+Fraction operator-(const Fraction& lhs, const Fraction& rhs) 
+{
+	int c = rhs._n * -1;
+	Fraction f{lhs._n * lhs._d + rhs._d * c, lhs._d * rhs._d };;
+	//rhs(a/b) + (c/d) = (ad+bc)/bd;
+	return f;
 }
 
 bool operator!=(const Fraction& lhs, const Fraction& rhs)
