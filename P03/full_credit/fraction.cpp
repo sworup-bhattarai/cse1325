@@ -79,6 +79,7 @@ std::istream& operator>>(std::istream& is, Fraction& fraction)
 	is >> fraction._n;
 	is >> v;
 	is >> fraction._d;
+	fraction.reduce();
 	return is;
 }
 
