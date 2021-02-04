@@ -79,7 +79,7 @@ int main() {
         std::cerr << "FAIL: Subtraction\n";
         result |= vector;
     }
-/*
+
     // Test multiplication
     if (f2*f3 != Fraction{3, 12}) {
         std::cerr << "FAIL: Multiplication\n";
@@ -96,7 +96,7 @@ int main() {
     //
     // End Testing
     //
-    */
+
     // Report the test results to the user and OS
     if(result) std::cerr << "\nFAILED - result is " << std::hex << std::showbase << result << std::endl;
     return result;

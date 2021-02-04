@@ -13,9 +13,8 @@ class Fraction{
 	Fraction operator-();
 	friend Fraction operator+(const Fraction& lhs, const Fraction& rhs);
 	friend Fraction operator-(const Fraction& lhs, const Fraction& rhs);
-	//Fraction operator*(Fraction& rhs);
-	//Fraction operator/(Fraction& rhs);
-	
+	friend Fraction operator*(const Fraction& lhs, const Fraction& rhs);
+	friend Fraction operator/(const Fraction& lhs, const Fraction& rhs);
 	friend std::ostream& operator<<(std::ostream& m, Fraction& );
 	friend std::istream& operator>>(std::istream& is, Fraction&);
 	friend bool operator!=(const Fraction& lhs, const Fraction& rhs);

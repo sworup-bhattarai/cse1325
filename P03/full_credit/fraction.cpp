@@ -92,13 +92,42 @@ Fraction operator+(const Fraction& lhs, const Fraction& rhs)
 Fraction operator-(const Fraction& lhs, const Fraction& rhs) 
 {
 	int c = rhs._n * -1;
-	Fraction f{lhs._n * lhs._d + rhs._d * c, lhs._d * rhs._d };;
+	Fraction f{lhs._n * lhs._d + rhs._d * c, lhs._d * rhs._d };
 	//rhs(a/b) + (c/d) = (ad+bc)/bd;
 	return f;
 }
+
+Fraction operator*(const Fraction& lhs, const Fraction& rhs)
+{
+	Fraction f {lhs._n * rhs._n, lhs._d * rhs._d};
+	return f;
+}
+
+Fraction operator/(const Fraction& lhs, const Fraction& rhs)
+{
+	Fraction f {lhs._n * rhs._d, lhs._d * rhs._n};
+	return f;
+}
+
 
 bool operator!=(const Fraction& lhs, const Fraction& rhs)
 {
 	return (lhs._n != rhs._n) || (lhs._d != rhs._d);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
