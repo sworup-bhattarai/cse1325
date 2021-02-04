@@ -1,6 +1,6 @@
 #include "fraction.h"
 
-/*Fraction Fraction::operator-()
+Fraction Fraction::operator-()
 {
 	
 	if (_d > 0 && _n > 0)
@@ -10,15 +10,17 @@
 	else if (_d > 0 && _n < 0 )
 	{
 		_n = abs(_n);
-	}	
+	}
+	return *this;	
 }
 Fraction operator+(Fraction& rhs)
 {
-	rhs._n = (rhs._n * *this._d + rhs._d * *this._n)
-	rhs._d = (*this._d * rhs._d )
-	return rhs;
-	//rhs(a/b) + *this(c/d) = (ad+bc)/bd;
-}*/
+	_n = (rhs._n * _d + rhs._d * _n);
+	_d = (_d * rhs._d );
+	
+	//rhs(a/b) + (c/d) = (ad+bc)/bd;
+	
+}
 void Fraction::reduce()
 {
 	if (_d < 0 && _n < 0 )
@@ -41,14 +43,14 @@ void Fraction::reduce()
           
  	}
 }
-Fraction::Fraction( int n = 0 , int d = 0) :  _n{n}, _d{d}
+Fraction::Fraction( int n = 0 , int d = 1) :  _n{n}, _d{d}
 {
 	reduce();
 }
 Fraction::Fraction( ) 
 {
 	_n = 0;
-	_d = 0;
+	_d = 1;
 }
 
 

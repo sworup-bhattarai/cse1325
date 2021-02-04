@@ -51,7 +51,7 @@ int main() {
         result |= vector;
     }
     vector <<= 1;
-/*
+
     // Negation testing
     // Test negation of a positive fraction
     if (-f1 != Fraction{-1, 2}) {
@@ -72,7 +72,7 @@ int main() {
         std::cerr << "FAIL: Addition\n";
         result |= vector;
     }
-
+/*
 
     // Test subtraction
     if (f1-f3 != Fraction{5, 6}) {

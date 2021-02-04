@@ -10,9 +10,8 @@ class Fraction{
   public:
   	Fraction(int n , int d );
   	Fraction();
-  	//int value();
-	//Fraction operator-();
-	//Fraction operator+(Fraction& rhs);
+	Fraction operator-();
+	Fraction operator+(Fraction& rhs);
 	//Fraction operator-(Fraction& rhs);
 	//Fraction operator*(Fraction& rhs);
 	//Fraction operator/(Fraction& rhs);
