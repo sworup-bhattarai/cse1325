@@ -27,8 +27,7 @@ int main() {
         result |= vector;
     }
     
- 
-   // Test input
+    // Test input
     std::string sfi{"-13/255"};
     std::istringstream iss{sfi};
     Fraction fi;
@@ -38,7 +37,7 @@ int main() {
         result |= vector;
     }
     vector <<= 1;
- 
+
     // Reduce testing    
     // Test reduce() handling of a negative denominator
     if (f2 != Fraction{-3, 4}) {
@@ -93,14 +92,49 @@ int main() {
     }
     vector <<= 1;
 
+    // Comparison operator testing
+    // Test equality
+    if (f1 == f2 /*|| f1 == f3 || f2 == f3*/) {
+        std::cerr << "FAIL: Equality\n";
+        result |= vector;
+    }
+  
+    // Test inequality
+    if (f1 != f4) {
+        std::cerr << "FAIL: Inquality\n";
+        result |= vector;
+    }
+  
+    // Test less than
+    if (f1 < f2 || f1 < f4) {
+        std::cerr << "FAIL: Less than\n";
+        result |= vector;
+    }
+  
+    // Test less than or equal
+    if (f1 <= f2 || !(f1 <= f4)) {
+        std::cerr << "FAIL: Less than or equal\n";
+        result |= vector;
+    }
+  
+      // Test greater than
+    if (f2 > f1 || f4 > f1) {
+        std::cerr << "FAIL: Greater than\n";
+        result |= vector;
+    }
+  
+    // Test greater than or equal
+    if (f2 >= f1 || !(f4 >= f1)) {
+        std::cerr << "FAIL: Greater than or equal\n";
+        result |= vector;
+    }
+    vector <<= 1;
+
     //
     // End Testing
     //
-
+ 
     // Report the test results to the user and OS
     if(result) std::cerr << "\nFAILED - result is " << std::hex << std::showbase << result << std::endl;
     return result;
-    
-    
-    
 }

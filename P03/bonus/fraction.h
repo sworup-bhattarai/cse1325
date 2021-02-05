@@ -18,6 +18,11 @@ class Fraction{
 	friend std::ostream& operator<<(std::ostream& m, Fraction& );
 	friend std::istream& operator>>(std::istream& is, Fraction&);
 	friend bool operator!=(const Fraction& lhs, const Fraction& rhs);
+	bool operator<(const Fraction& fraction) const;
+	bool operator>(const Fraction& fraction) const;
+	bool operator>=(const Fraction& fraction) const;
+	bool operator<=(const Fraction& fraction) const;
+	bool operator==(const Fraction& fraction) const;
   private:
   	int _n;
 	int _d;

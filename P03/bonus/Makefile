@@ -1,5 +1,8 @@
 CXXFLAGS = --std=c++17
-
+all:
+	make main
+	make test
+	
 main: fraction.o main.o *.h
 	$(CXX) $(CXXFLAGS) fraction.o main.o -o main
 

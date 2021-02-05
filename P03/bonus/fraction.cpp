@@ -5,12 +5,7 @@ Fraction::Fraction( int n = 0 , int d = 1) :  _n{n}, _d{d}
 
 	reduce();
 }
-Fraction::Fraction( ) 
-{
-	_n = 0;
-	_d = 1;
-	reduce();
-}
+Fraction::Fraction( ) : Fraction{0, 1} { }
 
 Fraction Fraction::operator-()
 {
@@ -76,19 +71,35 @@ std::ostream& operator<<(std::ostream& m, Fraction& fraction)
 std::istream& operator>>(std::istream& is, Fraction& fraction)
 {
 	char v;
-	is >> fraction._n;
-	is >> v;
-	is >> fraction._d;
+	while (true){
+		is >> fraction._n;
+		is >> v;
+		is >> fraction._d;
+		if (fraction._d == 0)
+		{
+			std::cout << "Please do not enter a 0 fot the denominator. Try again: " ;
+		}
+		else {
+			break;
+		}
+	}
 	fraction.reduce();
 	return is;
 }
 
 Fraction operator+(const Fraction& lhs, const Fraction& rhs) 
 {
-
-	Fraction f{rhs._n * lhs._d + rhs._d * lhs._n, lhs._d * rhs._d };;
+	if (lhs._d == rhs._d)
+	{
+		Fraction f{rhs._n  +  lhs._n,	lhs._d};
+		return f;
+	}
+	else {
+		Fraction f{rhs._n * lhs._d + rhs._d * lhs._n, lhs._d * rhs._d };
+		return f;
+	}
 	//rhs(a/b) + (c/d) = (ad+bc)/bd;
-	return f;
+	
 }
 Fraction operator-(const Fraction& lhs, const Fraction& rhs) 
 {
@@ -116,10 +127,36 @@ bool operator!=(const Fraction& lhs, const Fraction& rhs)
 	return (lhs._n != rhs._n) || (lhs._d != rhs._d);
 }
 
+bool Fraction::operator<(const Fraction& fraction) const {
+	double a = _n/(double)_d;
+	double b = fraction._n/(double)fraction._d;
+	return   (a < b);
 
+}
+bool Fraction::operator<=(const Fraction& fraction) const {
+	double a = _n/(double)_d;
+	double b = fraction._n/(double)fraction._d;
+	return   (a <= b);
 
+}
+bool Fraction::operator>(const Fraction& fraction) const {
+	double a = _n/(double)_d;
+	double b = fraction._n/(double)fraction._d;
+	return   (a > b);
 
+}
+bool Fraction::operator>=(const Fraction& fraction) const {
+	double a = _n/(double)_d;
+	double b = fraction._n/(double)fraction._d;
+	return   (a >= b);
 
+}
+bool Fraction::operator==(const Fraction& fraction) const {
+	double a = _n/(double)_d;
+	double b = fraction._n/(double)fraction._d;
+	return   (a == b);
+
+}
 
 
 
