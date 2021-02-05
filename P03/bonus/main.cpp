@@ -64,7 +64,5 @@ int main() {
 	}
 	
 	std::cout << osss.str();
-	
-	
 
 }

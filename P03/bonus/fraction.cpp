@@ -169,14 +169,3 @@ bool Fraction::operator==(const Fraction& fraction) const
 
 }
 
-
-
-
-
-
-
-
-
-
-
-

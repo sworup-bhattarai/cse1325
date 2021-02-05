@@ -23,6 +23,5 @@ int main() {
 	j = f-e;
 	oss << f << " - " << e << " is: " << j << std::endl;
 	std::cout << oss.str();
-	
 
 }

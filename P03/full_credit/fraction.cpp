@@ -116,19 +116,3 @@ bool operator!=(const Fraction& lhs, const Fraction& rhs)
 	return (lhs._n != rhs._n) || (lhs._d != rhs._d);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
