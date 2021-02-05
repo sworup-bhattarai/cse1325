@@ -11,6 +11,7 @@ class Fraction{
   	Fraction(int n , int d );
   	Fraction();
 	Fraction operator-();
+	//Fraction::value(); Dont worry my friend, you may be useless, but you shall stay 
 	friend Fraction operator+(const Fraction& lhs, const Fraction& rhs);
 	friend Fraction operator-(const Fraction& lhs, const Fraction& rhs);
 	friend Fraction operator*(const Fraction& lhs, const Fraction& rhs);

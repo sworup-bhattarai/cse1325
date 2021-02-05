@@ -94,7 +94,7 @@ int main() {
 
     // Comparison operator testing
     // Test equality
-    if (f1 == f2 /*|| f1 == f3 || f2 == f3*/) {
+    if (f1 == f2 || f1 == f3 || f2 == f3) {
         std::cerr << "FAIL: Equality\n";
         result |= vector;
     }
@@ -133,7 +133,7 @@ int main() {
     //
     // End Testing
     //
- 
+    
     // Report the test results to the user and OS
     if(result) std::cerr << "\nFAILED - result is " << std::hex << std::showbase << result << std::endl;
     return result;

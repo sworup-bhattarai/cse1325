@@ -77,7 +77,9 @@ std::istream& operator>>(std::istream& is, Fraction& fraction)
 		is >> fraction._d;
 		if (fraction._d == 0)
 		{
-			std::cout << "Please do not enter a 0 fot the denominator. Try again: " ;
+			std::cerr << "Now why'd you have to go do something like that? \nHmm just want to watch the world burn I suppose?\nYou best re-enter them digits correctly now you hear.\nDon't you be puttin in weird: \n" ;
+			std::cin.clear();
+			std::cin.ignore(99999,'\n');
 		}
 		else {
 			break;
@@ -101,6 +103,7 @@ Fraction operator+(const Fraction& lhs, const Fraction& rhs)
 	//rhs(a/b) + (c/d) = (ad+bc)/bd;
 	
 }
+
 Fraction operator-(const Fraction& lhs, const Fraction& rhs) 
 {
 	int c = rhs._n * -1;
@@ -121,37 +124,45 @@ Fraction operator/(const Fraction& lhs, const Fraction& rhs)
 	return f;
 }
 
-
 bool operator!=(const Fraction& lhs, const Fraction& rhs)
 {
 	return (lhs._n != rhs._n) || (lhs._d != rhs._d);
 }
 
-bool Fraction::operator<(const Fraction& fraction) const {
+bool Fraction::operator<(const Fraction& fraction) const 
+{
 	double a = _n/(double)_d;
 	double b = fraction._n/(double)fraction._d;
 	return   (a < b);
 
 }
-bool Fraction::operator<=(const Fraction& fraction) const {
+
+bool Fraction::operator<=(const Fraction& fraction) const 
+{
 	double a = _n/(double)_d;
 	double b = fraction._n/(double)fraction._d;
 	return   (a <= b);
 
 }
-bool Fraction::operator>(const Fraction& fraction) const {
+
+bool Fraction::operator>(const Fraction& fraction) const 
+{
 	double a = _n/(double)_d;
 	double b = fraction._n/(double)fraction._d;
 	return   (a > b);
 
 }
-bool Fraction::operator>=(const Fraction& fraction) const {
+
+bool Fraction::operator>=(const Fraction& fraction) const 
+{
 	double a = _n/(double)_d;
 	double b = fraction._n/(double)fraction._d;
 	return   (a >= b);
 
 }
-bool Fraction::operator==(const Fraction& fraction) const {
+
+bool Fraction::operator==(const Fraction& fraction) const 
+{
 	double a = _n/(double)_d;
 	double b = fraction._n/(double)fraction._d;
 	return   (a == b);
