@@ -27,6 +27,7 @@ int main() {
         result |= vector;
     }
     
+    
     // Test input
     std::string sfi{"-13/255"};
     std::istringstream iss{sfi};

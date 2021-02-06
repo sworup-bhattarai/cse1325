@@ -124,6 +124,7 @@ Fraction&  Fraction::operator++()
 	
 }
 
+
 Fraction Fraction::operator++(int) { // Post-increment (the parameter is ignored)
    Fraction fraction{*this};
    ++*this;

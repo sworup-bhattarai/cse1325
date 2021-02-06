@@ -21,3 +21,4 @@ fracion.o: fraction.cpp *.h
 
 clean:       
 	rm -f *.o *.gch *~ a.out test main
+	
