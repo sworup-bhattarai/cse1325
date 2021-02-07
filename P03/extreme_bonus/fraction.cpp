@@ -77,7 +77,7 @@ std::istream& operator>>(std::istream& is, Fraction& fraction)
 		is >> fraction._d;
 		if (fraction._d == 0)
 		{
-			std::cerr << "Now why'd you have to go do something like that? \nHmm just want to watch the world burn I suppose?\nYou best re-enter them digits correctly now you hear.\nDon't you be puttin in weird: \n" ;
+			std::cerr << "Now why'd you have to go do something like that? \nHmm just want to watch the world burn I suppose?\nYou best re-enter them digits correctly now you hear.\nDon't you be puttin in weird stuff: \n" ;
 			std::cin.clear();
 			std::cin.ignore(99999,'\n');
 		}
