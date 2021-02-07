@@ -1,4 +1,7 @@
 CXXFLAGS = --std=c++17
+info:
+	echo "Enter: make all \n	to compile everything \nEnter: make main \n	to compile main.cpp \nEnter: make test \n	to compile test.cpp"
+
 all:
 	make main
 	make test
