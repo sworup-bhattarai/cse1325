@@ -11,7 +11,7 @@ int main() {
 	
 	
 	j = -f;
-	std::ostringstream oss, osss , ossss; //ALL THE ssssss
+	std::ostringstream oss; //ALL THE ssssss
 	oss << "You entered: " << f << " and: " << e << std::endl;
 	oss << "The inverse of : " << f << " is: " << j << std::endl;
 	j = -e;
@@ -24,76 +24,77 @@ int main() {
 	oss << f << " + " << e << " = " << j << std::endl;
 	j = f-e;
 	oss << f << " - " << e << " = " << j << std::endl;
-	std::cout << oss.str();
-	std::cout << "---------------------------------------------------------------------------\n";
-	std::cout << "----------------------------------Bonus------------------------------------\n";
-	std::cout << "---------------------------------------------------------------------------\n\n";
+	
+	oss << "\n---------------------------------------------------------------------------\n";
+	oss << "----------------------------------Bonus------------------------------------\n";
+	oss << "---------------------------------------------------------------------------\n\n";
 	if (f == e){
-	osss << f << " is equal to " << e<< std::endl;
+	oss << f << " is equal to " << e<< std::endl;
 	}
 	else 
 	{
-	osss << f << " is NOT equal to " << e<< std::endl;
+	oss << f << " is NOT equal to " << e<< std::endl;
 	}
 	
 	if (f < e){
-	osss << f << " is less than " << e<< std::endl;
+	oss << f << " is less than " << e<< std::endl;
 	}
 	else 
 	{
-	osss << f << " is NOT less than " << e<< std::endl;
-	}
-	
-	if (f > e){
-	osss << f << " is greater than " << e<< std::endl;
-	}
-	else 
-	{
-	osss << f << " is NOT greater than " << e<< std::endl;
-	}
-	
-	if (f >= e){
-	osss << f << " is greater than or equal to " << e<< std::endl;
-	}
-	else 
-	{
-	osss << f << " is NOT greater than nor equal to " << e<< std::endl;
+	oss << f << " is NOT less than " << e<< std::endl;
 	}
 	
 	if (f <= e){
-	osss << f << " is less than or equal to " << e<< std::endl;
+	oss << f << " is less than or equal to " << e<< std::endl;
 	}
 	else 
 	{
-	osss << f << " is NOT less than nor equal to " << e << "\n\n" <<std::endl;
+	oss << f << " is NOT less than nor equal to " << e <<std::endl;
 	}
-	std::cout << osss.str();
-	std::cout << "---------------------------------------------------------------------------\n";
-	std::cout << "-------------------------------Extreme-Bonus-------------------------------\n";
-	std::cout << "---------------------------------------------------------------------------\n\n";
+	
+	
+	if (f > e){
+	oss << f << " is greater than " << e<< std::endl;
+	}
+	else 
+	{
+	oss << f << " is NOT greater than " << e<< std::endl;
+	}
+	
+	if (f >= e){
+	oss << f << " is greater than or equal to " << e<< std::endl;
+	}
+	else 
+	{
+	oss << f << " is NOT greater than nor equal to " << e<< std::endl;
+	}
+	
+	oss << "\n---------------------------------------------------------------------------\n";
+	oss << "-------------------------------Extreme-Bonus-------------------------------\n";
+	oss << "---------------------------------------------------------------------------\n\n";
 	std::cout << "Please enter an int: ";
 	std::cin >> a;
 	j = a + f;
-	ossss << a << " + " << f << " = " << j << std::endl;
+	oss << a << " + " << f << " = " << j << std::endl;
 	j = f + a;
-	ossss << f << " + " << a << " = " << j << std::endl;
+	oss << f << " + " << a << " = " << j << std::endl;
 	j = a - f;
-	ossss << a << " - " << f << " = " << j << std::endl;
+	oss << a << " - " << f << " = " << j << std::endl;
 	j = f - a;
-	ossss << f << " - " << a << " = " << j << std::endl;
+	oss << f << " - " << a << " = " << j << std::endl;
 	j = a * f;
-	ossss << a << " * " << f << " = " << j << std::endl;
+	oss << a << " * " << f << " = " << j << std::endl;
 	j = f * a;
-	ossss << f << " * " << a << " = " << j << std::endl;
+	oss << f << " * " << a << " = " << j << std::endl;
 	j = a / f;
-	ossss << a << " / " << f << " = " << j << std::endl;
+	oss << a << " / " << f << " = " << j << std::endl;
 	j = f / a;
-	ossss << f << " / " << a << " = " << j << std::endl << "++" << f;
+	oss << f << " / " << a << " = " << j << std::endl << "++" << f;
 	f++;
-	ossss << " is = " << f << std::endl << f;
+	oss << " is = " << f << std::endl << f;
 	++f;
-	ossss << "++ is = " << f<< std::endl;
-	std::cout << ossss.str();
+	oss << "++ is = " << f<< std::endl;
+	std::cout << oss.str();
 	
 
 

@@ -5,12 +5,19 @@ info:
 all:
 	make main
 	make test
+	make main_
+	
+main_: fraction.o main_.o *.h
+	$(CXX) $(CXXFLAGS) fraction.o main_.o -o main_	
 	
 main: fraction.o main.o *.h
 	$(CXX) $(CXXFLAGS) fraction.o main.o -o main
 
 test: fraction.o test.o *.h
 	$(CXX) $(CXXFLAGS) fraction.o test.o -o test
+
+main_.o: main_.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main_.cpp -o main_.o
 	
 main.o: main.cpp *.h
 	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
@@ -23,4 +30,4 @@ fracion.o: fraction.cpp *.h
 
 
 clean:       
-	rm -f *.o *.gch *~ a.out test main
+	rm -f *.o *.gch *~ a.out test main main_
