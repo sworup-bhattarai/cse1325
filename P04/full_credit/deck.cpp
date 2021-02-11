@@ -29,7 +29,7 @@ Card Deck::deal()
 		std::cout << _cards[_next_card] << " "; 
 		std::cin >> a;
 		
-		Card().attempt(_options[a]);
+		Card::attempt(_options[a]);
 		
 	}
 }
