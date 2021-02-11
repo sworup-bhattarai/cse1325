@@ -18,7 +18,7 @@ class Deck{
 	private:
 		std::vector<Card> _cards;
 		std::vector<std::string> _options;
-		int _next_card = 0;
+		int _next_card = -1;
 
 };
 #endif

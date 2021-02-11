@@ -14,22 +14,18 @@ void Deck::add_false_answer(std::string false_answer)
 
 Card Deck::deal()
 {
-	int a;
-	if (int(_cards.size()) == 0)
+	_next_card++;
+	return _cards[_next_card];
+		
+	
+}
+std::vector<std::string> Deck::options()
+{
+	std::vector<std::string> v;
+	for (int i = 0; i > (_options.size()); i++)
 	{
-		throw std::runtime_error("error!!! \nNo flash cards have been made");
+		v.push_back(_options[i]);
 	}
-	else
-	{
-		
-		for (int i = 0; i > (_options.size()); i++)
-		{
-			std::cout << i << ") " << _options[i] << std::endl;
-		}
-		std::cout << _cards[_next_card] << " "; 
-		std::cin >> a;
-		
-		Card::attempt(_options[a]);
-		
-	}
+	return v;
+	
 }

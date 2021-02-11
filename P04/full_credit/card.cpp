@@ -12,8 +12,8 @@ std::string Card::attempt(std::string responce)
 	}
 	else 
 	{
-	 	a =  std::string("X - Correct anser is ") + _answer + "\n\n";
-	 	return a;
+	 	return  std::string("X - Correct answer is ") + _answer + "\n\n";
+	 	
 	}
 }
 
