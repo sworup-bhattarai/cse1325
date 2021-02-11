@@ -14,6 +14,7 @@ void Deck::add_false_answer(std::string false_answer)
 
 Card Deck::deal()
 {
+	int a;
 	if (int(_cards.size()) == 0)
 	{
 		throw std::runtime_error("error!!! \nNo flash cards have been made");
@@ -26,7 +27,9 @@ Card Deck::deal()
 			std::cout << i << ") " << _options[i] << std::endl;
 		}
 		std::cout << _cards[_next_card] << " "; 
-		std::cin >> Card.attempt() ;
+		std::cin >> a;
+		
+		Card().attempt(_options[a]);
 		
 	}
 }
