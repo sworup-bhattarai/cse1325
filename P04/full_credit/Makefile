@@ -1,12 +1,12 @@
 CXXFLAGS = --std=c++17
-all: main
+all: flash_cards
 
 	
-main: card.o deck.o main.o *.h
-	$(CXX) $(CXXFLAGS) card.o deck.o main.o -o main
+flash_cards: card.o deck.o flash_cards.o *.h
+	$(CXX) $(CXXFLAGS) card.o deck.o flash_cards.o -o flash_cards
 	
-main.o: main.cpp *.h
-	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
+flash_cards.o: main.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main.cpp -o flash_cards.o
 	
 deck.o: deck.cpp *.h
 	$(CXX) $(CXXFLAGS) -c deck.cpp -o deck.o
@@ -16,4 +16,4 @@ card.o: card.cpp *.h
 
 
 clean:       
-	rm -f *.o *.gch *~ a.out test main
+	rm -f *.o *.gch *~ a.out  flash_cards

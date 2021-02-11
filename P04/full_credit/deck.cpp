@@ -22,7 +22,7 @@ Card Deck::deal()
 std::vector<std::string> Deck::options()
 {
 	std::vector<std::string> v;
-	for (int i = 0; i > (_options.size()); i++)
+	for (int i = 0; i < (_options.size()); i++)
 	{
 		v.push_back(_options[i]);
 	}

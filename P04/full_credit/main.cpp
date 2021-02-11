@@ -1,10 +1,11 @@
 #include "deck.h"
 #include "card.h"
-#include <ostream>
-#include <istream>
 #include <iostream>
-#include <sstream>
 #include <vector>
+#include <regex>
+#include <string>
+#include <algorithm>
+
 
 int main()
 {
@@ -46,10 +47,13 @@ int main()
 	•Setter – A method that changes the value of a private variable
 	*/
 
-
+	std::regex integer{"-?\\d+"};
 	std::vector<std::string> vocab; 
 	std::vector<std::string> ans;
+	std::vector<std::string> false_ans;
 	std::vector<Card> ns;
+	std::string choice;
+	int c;
 	
 	vocab.push_back("Object-Oriented Programming (OOP)");
 	ans.push_back("A style of programming focused on the use of classes andclass hierarchies");
@@ -79,40 +83,94 @@ int main()
 	ans.push_back("An instance of a class containing a set of encapsulated data and associated methods");
 	
 	vocab.push_back("Variable");
-	ans.push_back(" A block of memory associated with a symbolic name that contains an object instance or aprimitive data value");
+	ans.push_back("A block of memory associated with a symbolic name that contains an object instance or aprimitive data value");
+	//10
+	false_ans.push_back("Operator");
+	//ans.push_back("A short string representing a mathematical, logical, or machine control action");
 	
-	vocab.push_back("Operator");
-	ans.push_back("A short string representing a mathematical, logical, or machine control action");
+	false_ans.push_back("Attribute");
+	//ans.push_back("A class member variable");
 	
-	vocab.push_back("Attribute");
-	ans.push_back("A class member variable");
+	false_ans.push_back("Constructor");
+	//ans.push_back("A special class member that creates and initializes an object from the class");
 	
-	vocab.push_back("Constructor");
-	ans.push_back("A special class member that creates and initializes an object from the class");
+	false_ans.push_back("Destructor");
+	//ans.push_back("A special class member that cleans up when an object is deleted");
 	
-	vocab.push_back("Destructor");
-	ans.push_back("A special class member that cleans up when an object is deleted");
+	false_ans.push_back("Method");
+	//ans.push_back("A function that manipulates data in a class");
 	
-	vocab.push_back("Method");
-	ans.push_back("A function that manipulates data in a class");
-	
-	std::string a , b;
 	Deck o_cards;
 	for (int i = 0; i < vocab.size(); i++)
 	{
-		a = ans[i];
-		b = vocab[i];
-		o_cards.add_card(a,b);
+		o_cards.add_card(ans[i],vocab[i]);
 	}
+	for (int i = 0; i < false_ans.size(); i++)
+	{
+		o_cards.add_false_answer(false_ans[i]);
+	}
+	false_ans.erase (false_ans.begin(),false_ans.begin());
+	false_ans = o_cards.options();
+	for(int i = 0; i < ans.size() ; i++)
+	{
+		ns.push_back(o_cards.deal());
+	}
+
+	for (int i = 0; i < ns.size() - 1; i++) {
+		int j = i + std::rand() % (ns.size() - i);
+		std::swap(ns[i], ns[j]);
+	}
+
+
+
+
+
+
+
+
+
+
+
+	std::cout << "Select the number of the term for each definition (-1 to exit)" << std::endl;
+	for (int i = 0; i <= ns.size(); i++)
+	{
+		std::cout << std::endl;	
+		for (int j = 0; j < false_ans.size(); j++)
+		{
+			std::cout << j <<") " <<false_ans[j]  << std::endl;
+		}
+		std::cout << "\n" << ns[i];		
 	
-	ns.push_back(o_cards.deal());
-	ns.push_back(o_cards.deal());
-	ns.push_back(o_cards.deal());
-	ns.push_back(o_cards.deal());
-	for (int i = 0; i < ns.size(); i++)
+	while(std::cin>>choice) {
+		if(std::regex_match(choice , integer)) 
+		{
+			c = std::stoi(choice);
+			if (c <= -2 || c >= 15)
+			{
+				std::cout << "***INVALID INPUT***" << std::endl;
+			}
+			else
+				break;
+		}	
+		else
+			std::cout << "***INVALID INPUT***" << std::endl;
+		}
+	
+	c = std::stoi(choice);
+	
+	if(c == -1)
+	{
+		std::cout << "***Ending***" << std::endl;
+		return 0;
+	}
+	std::cout << ns[i].attempt(false_ans[c]);
+	}	
+
+
+	/*for (int i = 0; i < ns.size(); i++)
 	{
 		std::cout << ns[i].attempt("attempt");
-	}
+	}*/
 	
 	
 	

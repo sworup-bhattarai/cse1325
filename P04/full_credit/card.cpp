@@ -8,11 +8,11 @@ std::string Card::attempt(std::string responce)
 	std::string a;
 	if (responce == _answer)
 	{
-	 	return "Correct!\n\n";
+	 	return "\nCorrect!\n\n";
 	}
 	else 
 	{
-	 	return  std::string("X - Correct answer is ") + _answer + "\n\n";
+	 	return  std::string("\nX - Correct answer is ") + _answer + "\n\n";
 	 	
 	}
 }
