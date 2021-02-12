@@ -56,7 +56,7 @@ int main()
 	int c;
 	
 	vocab.push_back("Object-Oriented Programming (OOP)");
-	ans.push_back("A style of programming focused on the use of classes andclass hierarchies");
+	ans.push_back("A style of programming focused on the use of classes and class hierarchies");
 	
 	vocab.push_back("Inheritance");
 	ans.push_back("Reuse and extension of fields and method implementations from another class");
@@ -65,7 +65,7 @@ int main()
 	ans.push_back("Bundling data and code into a restricted container");
 	
 	vocab.push_back("Abstraction");
-	ans.push_back("Specifying a general interface while hiding implementation details (sometimes listed as a4th fundamental concept of OOP, though I believe it's common to most paradigms)");
+	ans.push_back("Specifying a general interface while hiding implementation details (sometimes listed as a 4th fundamental concept of OOP, though I believe it's common to most paradigms)");
 	
 	vocab.push_back("Primitive type");
 	ans.push_back("A data type that can typically be handled directly by the underlying hardware");
@@ -116,64 +116,57 @@ int main()
 		ns.push_back(o_cards.deal());
 	}
 
-	for (int i = 0; i < ns.size() - 1; i++) {
-		int j = i + std::rand() % (ns.size() - i);
-		std::swap(ns[i], ns[j]);
-	}
 
-
-
-
-
-
-
-
-
-
-
-	std::cout << "Select the number of the term for each definition (-1 to exit)" << std::endl;
-	for (int i = 0; i <= ns.size(); i++)
+	while (true)
 	{
-		std::cout << std::endl;	
-		for (int j = 0; j < false_ans.size(); j++)
-		{
-			std::cout << j <<") " <<false_ans[j]  << std::endl;
+		for (int i = 0; i < ns.size() - 1; i++) {
+			int j = i + std::rand() % (ns.size() - i);
+			std::swap(ns[i], ns[j]);
 		}
-		std::cout << "\n" << ns[i];		
-	
-	while(std::cin>>choice) {
-		if(std::regex_match(choice , integer)) 
+
+		std::cout << "Select the number of the term for each definition (-1 to exit)" << std::endl;
+		for (int i = 0; i < ns.size(); i++)
 		{
-			c = std::stoi(choice);
-			if (c <= -2 || c >= 15)
+			std::cout << std::endl;	
+			for (int j = 0; j < false_ans.size(); j++)
 			{
+				std::cout << j <<") " <<false_ans[j]  << std::endl;
+			}
+			std::cout << "\n" << ns[i];		
+		
+		while(std::cin>>choice) {
+			if(std::regex_match(choice , integer)) 
+			{
+				c = std::stoi(choice);
+				if (c <= -2 || c >= 15)
+				{
+					std::cout << "***INVALID INPUT***" << std::endl;
+				}
+				else
+					break;
+			}	
+			else
 				std::cout << "***INVALID INPUT***" << std::endl;
 			}
-			else
-				break;
-		}	
-		else
-			std::cout << "***INVALID INPUT***" << std::endl;
+		
+		c = std::stoi(choice);
+		
+		if(c == -1)
+		{
+			std::cout << "***Ending***" << std::endl;
+			return 0;
 		}
-	
-	c = std::stoi(choice);
-	
-	if(c == -1)
-	{
-		std::cout << "***Ending***" << std::endl;
-		return 0;
+		std::cout << ns[i].attempt(false_ans[c]);
+		}	
+
+
+		/*for (int i = 0; i < ns.size(); i++)
+		{
+			std::cout << ns[i].attempt("attempt");
+		}*/
+		
+		
 	}
-	std::cout << ns[i].attempt(false_ans[c]);
-	}	
-
-
-	/*for (int i = 0; i < ns.size(); i++)
-	{
-		std::cout << ns[i].attempt("attempt");
-	}*/
-	
-	
-	
 	
 	
 	
