@@ -7,10 +7,7 @@ void Deck::add_card( std::string question, std::string answer )
 	_options.push_back(answer);
 }
 
-void Deck::add_false_answer(std::string false_answer)
-{
-	_options.push_back(false_answer);
-}
+void Deck::add_false_answer(std::string false_answer){_options.push_back(false_answer);}
 
 Card Deck::deal()
 {
@@ -19,13 +16,4 @@ Card Deck::deal()
 		
 	
 }
-std::vector<std::string> Deck::options()
-{
-	std::vector<std::string> v;
-	for (int i = 0; i < (_options.size()); i++)
-	{
-		v.push_back(_options[i]);
-	}
-	return v;
-	
-}
+std::vector<std::string> Deck::options(){return _options;}
