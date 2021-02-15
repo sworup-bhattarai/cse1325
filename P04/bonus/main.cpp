@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "card.h"
+#include "hintcard.h"
 #include <iostream>
 #include <vector>
 #include <regex>
@@ -17,7 +18,7 @@ int main()
 	std::vector<std::string> ans;
 	std::vector<std::string> false_ans;
 	std::vector<Card> ns;
-	std::string choice, k;
+	std::string choice;
 	int c;
 	
 	vocab.push_back("Object-Oriented Programming (OOP)");
@@ -36,7 +37,7 @@ int main()
 	ans.push_back("A data type that can typically be handled directly by the underlying hardware");
 	
 	vocab.push_back("Enumerated type");
-	ans.push_back("A data type consisting of a fixed set of constant values called enumerators (C++ has both enum and enum class)");
+	ans.push_back("A data type consisting of a fixed set of constant values called enumerators (C++ 4has both enum and enum class)");
 	
 	vocab.push_back("Class");
 	ans.push_back("A template encapsulating data and code that manipulates it (C++ also has struct, which isidentical other than default visibility)");
@@ -97,7 +98,7 @@ int main()
 			std::swap(ns[i], ns[j]);
 		}
 
-		std::cout << "Select the number of the term for each definition (-1 at any time to exit)" << std::endl;
+		std::cout << "Select the number of the term for each definition (-1 to exit)" << std::endl;
 		for (int i = 0; i < ns.size(); i++)
 		{
 			std::cout << std::endl;	
@@ -133,14 +134,8 @@ int main()
 						return 0;
 					}
 					std::cout << ns[i].attempt(false_ans[c]); //checks answer
-					std::cout << "------------------------Hit ENTER to continue------------------" <<std::endl;
-					while(getline(std::cin , k)) {
-						
-						if(k == "-1")
-						{
-						std::cout << "***Ending***" << std::endl;
-						return 0;
-						}
+					std::cout << "------------------------Hit enter to continue------------------" <<std::endl;
+					while(getline(std::cin , choice)) {
 						break;
 					}
 					

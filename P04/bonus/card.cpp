@@ -12,7 +12,7 @@ std::string Card::attempt(std::string responce)
 	}
 	else 
 	{
-	 	return std::string("\n") + responce + std::string(" is not the correct answer \nCorrect answer is ") + _answer + "\n\n";
+	 	return std::string("\n") + responce + std::string(" is not the correct answer \n\n The correct answer is ") + _answer + "\n\n";
 	 	
 	}
 }
