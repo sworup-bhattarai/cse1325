@@ -16,6 +16,7 @@ int main()
 	std::regex integer{"-?\\d+"};
 	std::vector<std::string> vocab; 
 	std::vector<std::string> ans;
+	std::vector<std::string> hint;
 	std::vector<std::string> false_ans;
 	std::vector<Card> ns;
 	std::string choice;
@@ -23,48 +24,63 @@ int main()
 	
 	vocab.push_back("Object-Oriented Programming (OOP)");
 	ans.push_back("A style of programming focused on the use of classes and class hierarchies");
+	hint.push_back("1");
 	
 	vocab.push_back("Inheritance");
 	ans.push_back("Reuse and extension of fields and method implementations from another class");
+	hint.push_back("1");
 	
 	vocab.push_back("Encapsulation");
 	ans.push_back("Bundling data and code into a restricted container");
+	hint.push_back("1");
 	
 	vocab.push_back("Abstraction");
 	ans.push_back("Specifying a general interface while hiding implementation details (sometimes listed as a 4th fundamental concept of OOP, though I believe it's common to most paradigms)");
+	hint.push_back("1");
 	
 	vocab.push_back("Primitive type");
 	ans.push_back("A data type that can typically be handled directly by the underlying hardware");
+	hint.push_back("1");
 	
 	vocab.push_back("Enumerated type");
 	ans.push_back("A data type consisting of a fixed set of constant values called enumerators (C++ 4has both enum and enum class)");
+	hint.push_back("1");
 	
 	vocab.push_back("Class");
 	ans.push_back("A template encapsulating data and code that manipulates it (C++ also has struct, which isidentical other than default visibility)");
+	hint.push_back("1");
 	
 	vocab.push_back("Instance");
 	ans.push_back("An encapsulated bundle of data and code (e.g., an instance of a program is a process; aninstance of a class is an object)");
+	hint.push_back("1");
 	
 	vocab.push_back("Object");
 	ans.push_back("An instance of a class containing a set of encapsulated data and associated methods");
+	hint.push_back("1");
 	
 	vocab.push_back("Variable");
 	ans.push_back("A block of memory associated with a symbolic name that contains an object instance or aprimitive data value");
+	hint.push_back("1");
 	//10
 	vocab.push_back("Operator");
 	ans.push_back("A short string representing a mathematical, logical, or machine control action");
+	hint.push_back("1");
 	
 	vocab.push_back("Attribute");
 	ans.push_back("A class member variable");
+	hint.push_back("1");
 	
 	vocab.push_back("Constructor");
 	ans.push_back("A special class member that creates and initializes an object from the class");
+	hint.push_back("1");
 	
 	vocab.push_back("Destructor");
 	ans.push_back("A special class member that cleans up when an object is deleted");
+	hint.push_back("1");
 	
 	vocab.push_back("Method");
 	ans.push_back("A function that manipulates data in a class");
+	hint.push_back("1");
 	
 	false_ans.push_back("Vector");
 	false_ans.push_back("Map");
@@ -75,7 +91,7 @@ int main()
 	Deck o_cards;
 	for (int i = 0; i < vocab.size(); i++)
 	{
-		o_cards.add_card(ans[i],vocab[i]);
+		o_cards.add_card(ans[i],vocab[i], hint[i]);
 	}
 	for (int i = 0; i < false_ans.size(); i++)
 	{
