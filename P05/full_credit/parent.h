@@ -1,17 +1,18 @@
-#ifndef __PERSON_H
-#define __PERSON_H
+#ifndef __PARENT_H
+#define __PARENT_H
 
+#include "person.h"
 #include <ostream>
 #include <istream>
+#include <vector>
 #include <iostream>
 #include <sstream>
+class Student;
 
-class student;
+class Parent : public Person {
 
-class Parent : public Person
-	
 	protected:
-		std::vector<Student*> students;
+		std::vector<Student*> _students;
 	
 	public:
 		Parent(std::string name, std::string email);

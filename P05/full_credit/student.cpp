@@ -1,29 +1,29 @@
-#include student.h
+#include "student.h"
 
-Student::Student(std::string name, std::string email, int grade) : this->grade(grade), Person(name , email)
+Student::Student(std::string name, std::string email, int grade) : _grade(grade), Person(name , email)
 {
 
 }
 
-void Student::add_parent(Parent& p)
+void Student::add_parent(Parent& parent)
 {
-	parent.push_back(p);
+	_parents.push_back(parent);
 }
 
 int Student::parents()
 {
-	return parent.size();
+	return _parents.size();
 }
 
 Parent& Student::parent(int index)
 {
-	if (index > this->parent.size())
+	if (index > _parents.size())
 	{
 		throw std::out_of_range("The parameter is not within range");
 	}
 	else
 	{
-		return this->parent.at(index);
+		return *_parents.at(index);
 	}
 }
 
@@ -31,10 +31,10 @@ std::string Student::full_info()
 {
 	std::string info;
 	
-	info =  "name: " + name + "\nEmail: (" + email + ")" + "\nGrade: " + grade + "\nParents: ";
-	for(int i = 0; i > parent.size(); i++)
+	info =  "name: " + _name + "\nEmail: (" + _email + ")" + "\nGrade: " + char(_grade) + "\nParents: ";
+	for(int i = 0; i > _parents.size(); i++)
 	{
-		info += parent.at(i).to_string() + " ";
+		info += _parents.at(i).to_string() + " ";
 	}
 	return info;
 }

@@ -8,14 +8,14 @@
 
 class Person{
 	protected:
-		std::string name;
-		std::string email;
+		std::string _name;
+		std::string _email;
 	
 	public:
 		Person(std::string name, std::string email);
 		std::string to_sting();
 		virtual std::string full_info();
-		friend std::ostream& operator<<(ostream& ost, const Person person);
+		friend std::ostream& operator<<(std::ostream& ost, const Person person);
 
 };
 #endif
