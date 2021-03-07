@@ -1,5 +1,6 @@
 #ifndef __STUDENT_H
 #define __STUDENT_H
+class Parent;
 
 #include "person.h"
 #include <ostream>
@@ -7,7 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
-class Parent;
+
 
 class Student : public Person {
 

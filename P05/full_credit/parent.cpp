@@ -1,5 +1,5 @@
 #include "parent.h"
-
+#include "student.h"
 
 Parent::Parent(std::string name, std::string email) : Person(name , email)
 {
@@ -8,7 +8,7 @@ Parent::Parent(std::string name, std::string email) : Person(name , email)
 
 void Parent::add_student(Student& s)
 {
-	_students.push_back(s);
+	_students.push_back(s); // adds students to std::vector<Student*>
 }
 
 int Parent::students()

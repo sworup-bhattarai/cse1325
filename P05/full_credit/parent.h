@@ -1,16 +1,16 @@
 #ifndef __PARENT_H
 #define __PARENT_H
 
+class Student;
 #include "person.h"
 #include <ostream>
 #include <istream>
 #include <vector>
 #include <iostream>
 #include <sstream>
-class Student;
+
 
 class Parent : public Person {
-
 	protected:
 		std::vector<Student*> _students;
 	

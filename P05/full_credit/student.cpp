@@ -1,4 +1,5 @@
 #include "student.h"
+#include "parent.h"
 
 Student::Student(std::string name, std::string email, int grade) : _grade(grade), Person(name , email)
 {
@@ -34,7 +35,7 @@ std::string Student::full_info()
 	info =  "name: " + _name + "\nEmail: (" + _email + ")" + "\nGrade: " + char(_grade) + "\nParents: ";
 	for(int i = 0; i > _parents.size(); i++)
 	{
-		info += _parents.at(i).to_string() + " ";
+		info += _parents[i].to_string() + " ";
 	}
 	return info;
 }
