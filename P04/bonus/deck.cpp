@@ -2,7 +2,7 @@
 
 void Deck::add_card( std::string question, std::string answer, std::string hint )
 {
-	_cards.push_back(Card(question , answer, hint));
+	_cards.push_back(new Hintcard(question , answer, hint));
 	
 	_options.push_back(answer);
 }
@@ -15,7 +15,7 @@ void Deck::add_false_answer(std::string false_answer)
 Card& Deck::deal()
 {
 	_next_card++;
-	return _cards&[_next_card];
+	return *(_cards[_next_card]);
 		
 	
 }

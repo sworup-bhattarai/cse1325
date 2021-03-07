@@ -12,7 +12,7 @@
 
 class Deck{
 	public:
-		void Deck::add_card( std::string question, std::string answer, std::string hint );
+		void add_card( std::string question, std::string answer, std::string hint );
 		void add_false_answer(std::string false_answer);
 		Card& deal();
 		std::vector<std::string> options();

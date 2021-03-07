@@ -12,7 +12,7 @@ class Hintcard : public Card
 {
 	public:
 		Hintcard(std::string question , std::string answer , std::string hint);
-		std::string attempt(std::string recponce) override;
+		std::string attempt(std::string responce) override;
 	private:
 		std::string _hint;
 

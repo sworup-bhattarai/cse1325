@@ -12,7 +12,7 @@ class Card{
 		Card( std::string question , std::string answer );
 		virtual std::string attempt(std::string responce);
 		friend std::ostream& operator<<(std::ostream& ost, Card& m);
-	private:
+	protected:
 		std::string _question;
 		std::string _answer;
 };

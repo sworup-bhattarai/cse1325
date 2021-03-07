@@ -3,9 +3,10 @@
 
 
 
-Hintcard::Hintcard (std::string question , std::string answer , std::string hint) : _hint(hint) 
+Hintcard::Hintcard (std::string question , std::string answer , std::string hint) : 
+						_hint(hint),  Card(question, answer)
 {
-	Card::Card(question, answer);
+	
 }
 
 std::string Hintcard::attempt(std::string responce)
@@ -19,4 +20,5 @@ std::string Hintcard::attempt(std::string responce)
 	{
 	 	return std::string("\n") + responce + std::string(" is not the correct answer \n\n Hint: ") + _hint + "\n\n";
 	 	
-
+	}
+}
