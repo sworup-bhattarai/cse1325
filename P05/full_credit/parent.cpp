@@ -32,11 +32,12 @@ Student& Parent::student(int index)
 std::string Parent::full_info()
 {
 	std::string info;
-	//TODO: NO HARDCODE need to find a way to not segfault by using for loop
-	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Student: " + _students[0]->to_string();
-	/*for(int i = 0; i > _students.size(); i++)
+	std::string inf;
+	
+	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Student: " ;
+	for(int i = 0; i < _students.size(); i++)
 	{
-		info += _students[i]->to_string() + " ";
-	}*/
-	return info;
+		inf += _students[i]->to_string() + " ";
+	}
+	return info + inf;
 }

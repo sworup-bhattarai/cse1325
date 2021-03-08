@@ -31,11 +31,12 @@ Parent& Student::parent(int index)
 std::string Student::full_info()
 {
 	std::string info;
+	std::string inf = "";
 	
-	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Grade: " + std::to_string(_grade) + " Parents: " + _parents[0]->to_string() + " " + _parents[1]->to_string() + " ";
-/*	for(int i = 0; i > _parents.size(); i++)
+	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Grade: " + std::to_string(_grade) + " Parents: " ;
+	for(int i = 0; i < _parents.size(); i++)
 	{
-		info = info + _parents[i]->to_string() + " ";
-	}*/
-	return info;
+		inf = inf + _parents[i]->to_string() + " ";
+	}
+	return info + inf;
 }
