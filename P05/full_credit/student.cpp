@@ -8,7 +8,7 @@ Student::Student(std::string name, std::string email, int grade) : _grade(grade)
 
 void Student::add_parent(Parent& parent)
 {
-	_parents.push_back(parent);
+	_parents.push_back(&parent);
 }
 
 int Student::parents()
@@ -32,10 +32,10 @@ std::string Student::full_info()
 {
 	std::string info;
 	
-	info =  "name: " + _name + "\nEmail: (" + _email + ")" + "\nGrade: " + char(_grade) + "\nParents: ";
-	for(int i = 0; i > _parents.size(); i++)
+	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Grade: " + std::to_string(_grade) + " Parents: " + _parents[0]->to_string() + " " + _parents[1]->to_string() + " ";
+/*	for(int i = 0; i > _parents.size(); i++)
 	{
-		info += _parents[i].to_string() + " ";
-	}
+		info = info + _parents[i]->to_string() + " ";
+	}*/
 	return info;
 }

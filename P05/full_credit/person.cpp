@@ -8,7 +8,7 @@ Person::Person(std::string name , std::string email) : _name(name) , _email(emai
 
 std::string Person::to_string()
 {
-	return  "to_string()\n\tname: " + _name;
+	return  _name;
 }
 
 
