@@ -70,9 +70,7 @@ int main(){
         		std::cout << i << ") " << students[i] ;
     		}
     		std::cin >> b;
-    		std::cout << "adding student to parent" << std::endl;
     		parents[a].add_student(students[b]);
-    		std::cout << "adding student to parent" << std::endl;
     		students[b].add_parent(parents[a]);
     		
     		
