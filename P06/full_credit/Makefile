@@ -1,12 +1,15 @@
 CXXFLAGS = --std=c++17
-all: smart
+GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
+all: mainwin
 
-	
-smart: person.o parent.o student.o main.o *.h
-	$(CXX) $(CXXFLAGS) student.o person.o parent.o main.o -o smart
-	
-main.o: cli.cpp *.h
-	$(CXX) $(CXXFLAGS) -c cli.cpp -o main.o
+mainwin: main.o mainwin.o person.o parent.o student.o
+	$(CXX) $(CXXFLAGS) main.o mainwin.o person.o parent.o student.o $(GTKFLAGS) -o SMART
+
+main.o: main.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main.cpp $(GTKFLAGS) -o main.o
+
+mainwin.o: mainwin.cpp *.h
+	$(CXX) $(CXXFLAGS) -c mainwin.cpp $(GTKFLAGS) -o mainwin.o
 	
 person.o: person.cpp *.h
 	$(CXX) $(CXXFLAGS) -c person.cpp -o person.o
@@ -19,4 +22,4 @@ parent.o: parent.cpp *.h
 
 
 clean:       
-	rm -f *.o *.gch *~ a.out  smart
+	rm -f *.o *.gch *~ a.out SMART
