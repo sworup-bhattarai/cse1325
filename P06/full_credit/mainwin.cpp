@@ -260,9 +260,9 @@ void Mainwin::on_student_to_parent_click(){
 			{
 				if (parent[j].to_string() == c_par.get_active_text())
 				{
-					parent[0].add_student(student[0]);
+					parent[j].add_student(student[i]);
 					
-					student[0].add_parent(parent[0]);
+					student[i].add_parent(parent[j]);
 					
 					
 				}
