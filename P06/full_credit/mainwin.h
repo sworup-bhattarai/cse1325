@@ -20,7 +20,8 @@ class Mainwin : public Gtk::Window {
     private:
 	std::vector<Student> student;
 	std::vector<Parent> parent;
-        Gtk::Label *display;                      // Display of sticks on game board
+    Gtk::Label *display;                      // Display of sticks on game board
+    void show_data();
 
 };
 #endif 

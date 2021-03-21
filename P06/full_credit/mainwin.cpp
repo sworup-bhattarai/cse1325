@@ -1,13 +1,13 @@
 #include "mainwin.h"
+#include "entrydialog.h"
 #include <iostream> // for std::cerr logging
 
 Mainwin::Mainwin() {
-
     // /////////////////
     // G U I   S E T U P
     // /////////////////
 
-    set_default_size(600, 200);
+    set_default_size(550, 250);
     set_title("School Management And Reporting Tool(S.M.A.R.T.)");
 
     // Put a vertical box container as the Window contents
@@ -81,11 +81,11 @@ Mainwin::Mainwin() {
     // vbox->add(*toolbar);
 
     // /////////////////////////// ////////////////////////////////////////////
-    // S T I C K S   D I S P L A Y
+    // P E O P L E   D I S P L A Y
     // Provide a text entry box to show the remaining sticks
     display = Gtk::manage(new Gtk::Label());
-    display->set_hexpand(true);
-    display->set_vexpand(true);
+	
+	show_data();
     vbox->add(*display);
     
 
@@ -111,6 +111,8 @@ void Mainwin::on_new_school_click() {
     
     student.clear();
     parent.clear();
+    show_data();
+ 
 }
 
 void Mainwin::on_quit_click() {
@@ -118,12 +120,175 @@ void Mainwin::on_quit_click() {
 }
 
 void Mainwin::on_new_student_click(){
+ 
+   	Gtk::Dialog dialog{"Student's info", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label lname{"Name"};
+    Gtk::Entry ename;               
+
+    grid.attach(lname, 0, 1, 1, 1);
+    grid.attach(ename, 1, 2, 2, 1);
+
+    
+    Gtk::Label lemail{"Email"};
+    Gtk::Entry eemail;               
+
+    grid.attach(lemail, 0, 3, 1, 1);
+    grid.attach(eemail, 1, 4, 2, 1);
+
+    Gtk::HBox hbgrade;
+    Gtk::Label lgrade{"Grade"};
+    Gtk::SpinButton sgrade;
+    sgrade.set_range(1,12);
+    sgrade.set_increments(1,5);       
+    sgrade.set_value(10);              
+
+    grid.attach(lgrade, 0, 5, 1, 1);
+    grid.attach(sgrade, 1, 6, 2, 1);
+
+   
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+
+    }
+
+	if (ename.get_text().size() != 0) {
+    	if (eemail.get_text().size() != 0) {
+        	Student s{ename.get_text(),eemail.get_text(), sgrade.get_value_as_int()};
+			student.push_back(s);	
+        }
+	}
 	
+	show_data();
+			
+
+
+
 }       
 void Mainwin::on_new_parents_click(){
 	
+	Gtk::Dialog dialog{"Parent's info", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label lname{"Name"};
+    Gtk::Entry ename;               
+
+    grid.attach(lname, 0, 1, 1, 1);
+    grid.attach(ename, 1, 2, 2, 1);
+
+    
+    Gtk::Label lemail{"Email"};
+    Gtk::Entry eemail;               
+
+    grid.attach(lemail, 0, 3, 1, 1);
+    grid.attach(eemail, 1, 4, 2, 1);
+
+   
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+        
+
+    }
+	
+	if (ename.get_text().size() != 0) {
+    	if (eemail.get_text().size() != 0) {
+        	Parent p{ename.get_text(),eemail.get_text()};
+			parent.push_back(p);
+        }
+	}
+	show_data();
+			
+
+	
 }   
 void Mainwin::on_student_to_parent_click(){
+	Gtk::Dialog dialog{"Parents and Children", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label d_par{"Pick a parent"};
+    Gtk::ComboBoxText c_par{true}; 
+	for (auto par : parent )
+	{
+		c_par.append(par.to_string());
+	}
+	c_par.set_active(0);
 	
+	grid.attach(d_par, 1, 0, 1, 1); 
+    grid.attach(c_par, 1, 1, 2, 1);
+    
+    Gtk::Label d_stu{"Pick the parent's student"};
+    Gtk::ComboBoxText c_stu{true}; 
+	for (auto stu : student )
+	{
+		c_stu.append(stu.to_string());
+	}
+	c_stu.set_active(0);
+	
+	grid.attach(d_stu, 1, 2, 1, 1); 
+    grid.attach(c_stu, 1, 3, 2, 1);
+
+	dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
+        
+
+    }
+    
+    for (int i = 0 ; i < student.size(); i++ )
+	{
+		if (student[i].to_string() == c_stu.get_active_text())
+		{
+			for (int j = 0 ; j < parent.size(); j++ )
+			{
+				if (parent[j].to_string() == c_par.get_active_text())
+				{
+					parent[0].add_student(student[0]);
+					
+					student[0].add_parent(parent[0]);
+					
+					
+				}
+			}
+		}
+	}
+   	
+   	
+   	show_data();
 }
+
+void Mainwin::show_data() {
+
+	std::string s = "Parents:\n";
+	for (auto par : parent )
+	{
+		s += par.full_info();
+	}
+	s += "Students:\n";
+	for (auto stu : student )
+	{
+		s+= stu.full_info();
+	}
+	
+    display->set_label(s);
+
+}
+
 

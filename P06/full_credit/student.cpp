@@ -45,10 +45,11 @@ std::string Student::full_info()
 	std::string info;
 	std::string inf = "";
 	
-	info =  "\nname: " + _name + " Email: (" + _email + ")" + " Grade: " + std::to_string(_grade) + " Parents: " ;
+	info =  "name: " + _name + " (" + _email + ")" + " Grade: " + std::to_string(_grade) + " Parents: " ;
 	for(int i = 0; i < parents(); i++)
 	{
 		inf = inf + _parents[i]->to_string() + " ";
 	}
+	inf += "\n";
 	return info + inf;
 }
