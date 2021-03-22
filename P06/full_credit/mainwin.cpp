@@ -161,8 +161,9 @@ void Mainwin::on_new_student_click(){
 
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
-        	Student s{ename.get_text(),eemail.get_text(), sgrade.get_value_as_int()};
-			student.push_back(s);	
+    		std::cout<< "making a stdent" << std::endl;
+			student.push_back(Student{ename.get_text(),eemail.get_text(), sgrade.get_value_as_int()});	
+			std::cout<< "made a stdent" << std::endl;
         }
 	}
 	
@@ -205,8 +206,9 @@ void Mainwin::on_new_parents_click(){
 	
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
-        	Parent p{ename.get_text(),eemail.get_text()};
-			parent.push_back(p);
+    		std::cout<< "making a parent" << std::endl;
+			parent.push_back(Parent{ename.get_text(),eemail.get_text()});
+        	std::cout<< "made a parent" << std::endl;
         }
 	}
 	show_data();
@@ -254,16 +256,20 @@ void Mainwin::on_student_to_parent_click(){
     
     for (int i = 0 ; i < student.size(); i++ )
 	{
+		std::cout<< "looking through student" << std::endl;
 		if (student[i].to_string() == c_stu.get_active_text())
 		{
 			for (int j = 0 ; j < parent.size(); j++ )
 			{
+				std::cout<< "looking through parent" << std::endl;
 				if (parent[j].to_string() == c_par.get_active_text())
 				{
-					parent[j].add_student(student[i]);
-					
-					student[i].add_parent(parent[j]);
-					
+					std::cout<< "combining parent and student"<< i << j << std::endl;
+					parent.at(j).add_student(student.at(i));
+					std::cout<< "combining student and parent" << std::endl;
+					student.at(i).add_parent(parent.at(j));
+					std::cout<< "combined" << std::endl;
+					break;
 					
 				}
 			}
@@ -276,7 +282,7 @@ void Mainwin::on_student_to_parent_click(){
 
 void Mainwin::show_data() {
 
-	std::string s = "Parents:\n";
+	/*std::string s = "Parents:\n";
 	for (auto par : parent )
 	{
 		s += par.full_info();
@@ -285,7 +291,26 @@ void Mainwin::show_data() {
 	for (auto stu : student )
 	{
 		s+= stu.full_info();
+	}*/
+	std::string s = "";
+	
+	s = "Students:\n";
+	 for (int i = 0 ; i < student.size(); i++ )
+	{
+		s = s + student[i].full_info();
 	}
+	s =s + "Parents:\n";
+		
+	for (int j = 0 ; j < parent.size(); j++ )
+	{
+
+		s = s + parent[j].full_info();	
+		
+	}
+		
+	std::cout<< "made s" << std::endl;
+	
+	
 	
     display->set_label(s);
 
