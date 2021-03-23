@@ -137,7 +137,6 @@ void Mainwin::on_new_student_click(){
     grid.attach(lemail, 0, 3, 1, 1);
     grid.attach(eemail, 1, 4, 2, 1);
 
-    Gtk::HBox hbgrade;
     Gtk::Label lgrade{"Grade"};
     Gtk::SpinButton sgrade;
     sgrade.set_range(1,12);
@@ -161,9 +160,9 @@ void Mainwin::on_new_student_click(){
 
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
-    		std::cout<< "making a stdent" << std::endl;
+    	
 			student.push_back(Student{ename.get_text(),eemail.get_text(), sgrade.get_value_as_int()});	
-			std::cout<< "made a stdent" << std::endl;
+		
         }
 	}
 	
@@ -206,9 +205,9 @@ void Mainwin::on_new_parents_click(){
 	
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
-    		std::cout<< "making a parent" << std::endl;
+    	
 			parent.push_back(Parent{ename.get_text(),eemail.get_text()});
-        	std::cout<< "made a parent" << std::endl;
+        
         }
 	}
 	show_data();
@@ -244,31 +243,32 @@ void Mainwin::on_student_to_parent_click(){
 
 	dialog.get_content_area()->add(grid);
 
-    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
     int response;
 
     dialog.show_all();
 
     while((response = dialog.run()) == Gtk::RESPONSE_OK) {
-        
+    
+        //waits till the cancle button disquized as an OK button is selected
 
     }
     
     for (int i = 0 ; i < student.size(); i++ )
 	{
-		std::cout<< "looking through student" << std::endl;
+		
 		if (student[i].to_string() == c_stu.get_active_text())
 		{
 			for (int j = 0 ; j < parent.size(); j++ )
 			{
-				std::cout<< "looking through parent" << std::endl;
+				
 				if (parent[j].to_string() == c_par.get_active_text())
 				{
-					std::cout<< "combining parent and student"<< i << j << std::endl;
+					
 					parent.at(j).add_student(student.at(i));
-					std::cout<< "combining student and parent" << std::endl;
+				
 					student.at(i).add_parent(parent.at(j));
-					std::cout<< "combined" << std::endl;
+				
 					break;
 					
 				}
@@ -292,27 +292,30 @@ void Mainwin::show_data() {
 	{
 		s+= stu.full_info();
 	}*/
+	
 	std::string s = "";
 	
 	s = "Students:\n";
-	 for (int i = 0 ; i < student.size(); i++ )
+	 for (auto & st : student )
 	{
-		s = s + student[i].full_info();
-	}
-	s =s + "Parents:\n";
 		
-	for (int j = 0 ; j < parent.size(); j++ )
+		s = s + st.full_info() ;
+		
+	}
+	s = s + "Parents:\n";
+		
+	for (auto & e : parent )
 	{
 
-		s = s + parent[j].full_info();	
+		s = s + e.full_info() ;	
 		
 	}
 		
-	std::cout<< "made s" << std::endl;
+
 	
 	
 	
-    display->set_label(s);
+    display->set_text(s);
 
 }
 

@@ -8,7 +8,7 @@ Parent::Parent(std::string name, std::string email) : Person(name , email)
 
 void Parent::add_student(Student& s)
 {
-	/*int i = 1;
+	int i = 1;
 	for(auto p : _students)
 	{
 		if (p->to_string() == s.to_string())
@@ -18,9 +18,9 @@ void Parent::add_student(Student& s)
 		}
 	}
 	if (i ==1)
-	{*/
+	{
 		_students.push_back(&s);
-	//}
+	}
 }
 
 int Parent::students()
@@ -43,14 +43,16 @@ Student& Parent::student(int index)
 
 std::string Parent::full_info()
 {
-	std::string info;
-	std::string inf;
-	
+	std::string info = "";
+
+
 	info =  "name: " + _name + " (" + _email + ")" + " Student: " ;
 	for(int i = 0; i < students(); i++)
 	{
-		inf += _students[i]->to_string() + " ";
+	
+		info += _students[i]->to_string() + " ";
+	
 	}
-	inf += "\n";
-	return info + inf;
+	info += "\n";
+	return info ;
 }
