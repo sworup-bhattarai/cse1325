@@ -257,12 +257,12 @@ void Mainwin::on_student_to_parent_click(){
     for (int i = 0 ; i < student.size(); i++ )
 	{
 		
-		if (student[i].to_string() == c_stu.get_active_text())
+		if (i == c_stu.get_active_row_number())
 		{
 			for (int j = 0 ; j < parent.size(); j++ )
 			{
 				
-				if (parent[j].to_string() == c_par.get_active_text())
+				if (i == c_par.get_active_row_number())
 				{
 					
 					parent.at(j).add_student(student.at(i));
@@ -293,7 +293,7 @@ void Mainwin::show_data() {
 		s+= stu.full_info();
 	}*/
 	
-	std::string s = "";
+	Glib::ustring s = "";
 	
 	s = "Students:\n";
 	 for (auto & st : student )
@@ -310,11 +310,6 @@ void Mainwin::show_data() {
 		s = s + e.full_info() ;	
 		
 	}
-		
-
-	
-	
-	
     display->set_text(s);
 
 }

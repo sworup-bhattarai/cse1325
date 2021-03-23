@@ -2,6 +2,9 @@ CXXFLAGS = --std=c++17
 GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 all: mainwin
 
+debug: CXXFLAGS += -g
+debug: mainwin
+
 mainwin: main.o mainwin.o person.o parent.o student.o entrydialog.o *h
 	$(CXX) $(CXXFLAGS) main.o mainwin.o person.o parent.o student.o entrydialog.o $(GTKFLAGS) -o SMART
 
