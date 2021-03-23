@@ -6,13 +6,13 @@ Person::Person(std::string name , std::string email) : _name(name) , _email(emai
 
 }
 
-std::string Person::to_string()
+std::string Person::to_string() const
 {
 	return  _name;
 }
 
 
-std::string Person::full_info()
+std::string Person::full_info() const
 {
 	return  "name: " + _name + "\nEmail: (" + _email + ")";
 }

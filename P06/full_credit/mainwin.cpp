@@ -154,10 +154,10 @@ void Mainwin::on_new_student_click(){
 
     dialog.show_all();
 
-    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
-
-    }
-
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+	//waits till the cancle button disquized as an OK button is selected
+	
+	
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
     	
@@ -198,10 +198,9 @@ void Mainwin::on_new_parents_click(){
 
     dialog.show_all();
 
-    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
-        
-
-    }
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+	//waits till the cancle button disquized as an OK button is selected
+	
 	
 	if (ename.get_text().size() != 0) {
     	if (eemail.get_text().size() != 0) {
@@ -248,11 +247,8 @@ void Mainwin::on_student_to_parent_click(){
 
     dialog.show_all();
 
-    while((response = dialog.run()) == Gtk::RESPONSE_OK) {
-    
-        //waits till the cancle button disquized as an OK button is selected
-
-    }
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+    //waits till the cancle button disquized as an OK button is selected
     
     for (int i = 0 ; i < student.size(); i++ )
 	{

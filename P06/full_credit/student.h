@@ -20,7 +20,7 @@ class Student : public Person {
 		void add_parent(Parent& parent);
 		int parents();
 		Parent& parent(int index);
-		std::string full_info() override;
+		std::string full_info() const override;
 
 };
 #endif
