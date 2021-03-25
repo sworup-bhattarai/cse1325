@@ -1,0 +1,574 @@
+#include "mainwin.h"
+#include "entrydialog.h"
+#include <iostream> // for std::cerr logging
+
+const int MAX_STUDENTS = 100;
+const int MAX_PARENTS = 400;
+
+Mainwin::Mainwin() {
+    // /////////////////
+    // G U I   S E T U P
+    // /////////////////
+    student.reserve(MAX_STUDENTS);
+	parent.reserve(MAX_PARENTS);
+	
+    set_default_size(550, 250);
+    set_title("School Management And Reporting Tool(S.M.A.R.T.)");
+
+    // Put a vertical box container as the Window contents
+    Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
+    add(*vbox);
+
+    // /////// ////////////////////////////////////////////////////////////////
+    // M E N U
+    // Add a menu bar as the top item in the vertical box
+    Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar);
+    vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
+
+    //     F I L E
+    // Create a File menu and add to the menu bar
+    Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
+    menubar->append(*menuitem_file);
+    Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
+    menuitem_file->set_submenu(*filemenu);
+
+    //         N E W   G A M E
+    // Append New to the File menu
+    Gtk::MenuItem *menuitem_new = Gtk::manage(new Gtk::MenuItem("_New School", true));
+    menuitem_new->signal_activate().connect([this] {this->on_new_school_click();});
+    filemenu->append(*menuitem_new);
+    
+     //         S A V E   G A M E
+    // Append Save... to the File menu
+    Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save ", true));
+    menuitem_save->signal_activate().connect([this] {this->on_save_click();});
+    filemenu->append(*menuitem_save);
+
+     //         S A V E   G A M E
+    // Append Save As... to the File menu
+    Gtk::MenuItem *menuitem_save_as = Gtk::manage(new Gtk::MenuItem("Save _As", true));
+    menuitem_save_as->signal_activate().connect([this] {this->on_save_as_click();});
+    filemenu->append(*menuitem_save_as);
+
+    //         O P E N   G A M E
+    // Append Open... to the File menu
+    Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
+    menuitem_open->signal_activate().connect([this] {this->on_open_click();});
+    filemenu->append(*menuitem_open);
+   
+   
+	//         Q U I T
+    // Append Quit to the File menu
+    Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
+    menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
+    filemenu->append(*menuitem_quit);
+
+    //     	I N S E R T
+    // Create a Insert menu and add to the menu bar
+    Gtk::MenuItem *menuitem_insert = Gtk::manage(new Gtk::MenuItem("_Insert", true));
+    menubar->append(*menuitem_insert);
+    Gtk::Menu *insertmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_insert->set_submenu(*insertmenu);
+
+    //           N E W  S T U D E N T
+    // Append Rules to the Insert menu
+    Gtk::MenuItem *menuitem_rules = Gtk::manage(new Gtk::MenuItem("New _Student", true));
+    menuitem_rules->signal_activate().connect([this] {this->on_new_student_click();});
+    insertmenu->append(*menuitem_rules);
+
+    //           N E W  P A R E N T 
+    // Append About to the Insert menu
+    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("New _Parent", true));
+    menuitem_about->signal_activate().connect([this] {this->on_new_parents_click();});
+    insertmenu->append(*menuitem_about);
+    
+    //         T E S T   D A T A
+    // Append Test Data to the Insert menu
+    Gtk::MenuItem *menuitem_test_data = Gtk::manage(new Gtk::MenuItem("_Test Data", true));
+    menuitem_test_data->signal_activate().connect([this] {this->on_easter_egg();});
+    insertmenu->append(*menuitem_test_data);
+    
+    //     	R E L A T E 
+    // Create a Relate menu and add to the menu bar
+    Gtk::MenuItem *menuitem_relate = Gtk::manage(new Gtk::MenuItem("_Relate", true));
+    menubar->append(*menuitem_relate);
+    Gtk::Menu *relatemenu = Gtk::manage(new Gtk::Menu());
+    menuitem_relate->set_submenu(*relatemenu);
+
+    //           S T U D E N T  T O  P A R E N T 
+    // Append Rules to the Insert menu
+    Gtk::MenuItem *menuitem_stp = Gtk::manage(new Gtk::MenuItem("_Student to parent", true));
+    menuitem_stp->signal_activate().connect([this] {this->on_student_to_parent_click();});
+    relatemenu->append(*menuitem_stp);    
+    
+
+    // ///////////// //////////////////////////////////////////////////////////
+    // T O O L B A R
+    // Add a toolbar to the vertical box below the menu
+    Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
+    vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
+    // vbox->add(*toolbar);
+    
+    //     N E W   S C H O O L
+    // Add a new school icon
+    Gtk::ToolButton *new_school_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    new_school_button->set_tooltip_markup("Create a new school, discarding any in progress");
+    new_school_button->signal_clicked().connect([this] {this->on_new_school_click();});
+    toolbar->append(*new_school_button);
+    
+    //     O P E N  S C H O O L
+    // Add a open school icon
+    Gtk::ToolButton *open_school_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::OPEN));
+    open_school_button->set_tooltip_markup("Open");
+    open_school_button->signal_clicked().connect([this] {this->on_open_click();});
+    toolbar->append(*open_school_button);
+    
+     //     S A V E  S C H O O L
+    // Add a save school icon
+    Gtk::ToolButton *save_school_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::FLOPPY));
+    save_school_button->set_tooltip_markup("Save");
+    save_school_button->signal_clicked().connect([this] {this->on_save_click();});
+    toolbar->append(*save_school_button);
+    
+    //     S A V E  A S  S C H O O L
+    // Add a save as school icon
+    Gtk::ToolButton *save_as_school_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+    save_as_school_button->set_tooltip_markup("Save As");
+    save_as_school_button->signal_clicked().connect([this] {this->on_save_as_click();});
+    toolbar->append(*save_as_school_button);
+    Gtk::SeparatorToolItem *separator = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*separator);
+
+    // ////////////////////////////////////////////////////////////////////////
+    // P E O P L E   D I S P L A Y
+    // Provide a text entry box to show the remaining sticks
+    display = Gtk::manage(new Gtk::Label());
+	
+	show_data();
+    vbox->add(*display);
+    
+
+    // Make the box and everything in it visible
+    vbox->show_all();
+
+    // Start a new game
+    on_new_school_click();
+}
+
+Mainwin::~Mainwin() { }
+
+// /////////////////
+// C A L L B A C K S
+// /////////////////
+
+// COMBINED observer / callback
+
+
+
+
+void Mainwin::on_new_school_click() {
+    
+    student.clear();
+    parent.clear();
+    show_data();
+ 
+}
+
+void Mainwin::on_quit_click() {
+    close();
+}
+
+void Mainwin::on_save_as_click() {
+    Gtk::FileChooserDialog dialog("Please choose a file",
+    Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+    dialog.set_transient_for(*this);
+
+    auto filter_nim = Gtk::FileFilter::create();
+    filter_nim->set_name("SAT files");
+    filter_nim->add_pattern("*.sat");
+    dialog.add_filter(filter_nim);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled.sat");
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Save", 1);
+
+    int result = dialog.run();
+    _filename = dialog.get_filename();
+    
+    if (result == 1) {
+		 try {	
+
+			std::ofstream ofs{_filename};
+			for (auto p : parent)
+			{
+				p.save(ofs);
+			}
+			for (auto s : student)
+			{
+				s.save(ofs);
+			}
+
+			if(!ofs) throw std::runtime_error{"Error writing file"};
+		
+		} catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "Unable to save"}.run();
+		} 
+	    
+	    
+	}
+
+
+}
+
+void Mainwin::on_save_click() {
+
+	if(_filename == "")
+	{
+	on_save_as_click();
+	}
+	else
+	{
+	  	try {	
+
+			std::ofstream ofs{_filename};
+			for (auto p : parent)
+			{
+				p.save(ofs);
+			}
+			for (auto s : student)
+			{
+				s.save(ofs);
+			}
+
+			if(!ofs) throw std::runtime_error{"Error writing file"};
+		
+		} catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "Unable to save"}.run();
+		} 
+	}
+
+}
+
+
+//
+// The user wants to open a drawing from the filesystem
+//
+void Mainwin::on_open_click() {
+    Gtk::FileChooserDialog dialog("Please choose a file",
+          Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+    dialog.set_transient_for(*this);
+
+    auto filter_nim = Gtk::FileFilter::create();
+    filter_nim->set_name("SAT files");
+    filter_nim->add_pattern("*.sat");
+    dialog.add_filter(filter_nim);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled.sat");
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+	int selector = 0; 
+	std::vector<std::vector<std::string>> par; 
+	std::vector<std::vector<std::string>> stu;
+	std::vector<std::string> inf;	
+	if (result == 1) {
+		on_new_school_click();
+		
+        try {
+            
+            std::ifstream ifs{dialog.get_filename()};
+            if(!ifs) throw std::runtime_error{"File contents bad"};
+            std::string q;
+            while (std::getline(ifs , q))
+            {
+            	if(q == "Student")
+				{
+            		selector = 1;
+            	}
+            	else if (q == "Parent")
+            	{
+            		selector = 2;
+            	}
+            	else if (q == "End Parent")
+            	{
+            		par.push_back(inf);
+            		inf.clear();
+            		
+            	}
+            	else if (q == "End Student")
+            	{
+            		stu.push_back(inf);
+            		inf.clear();
+            		
+            	}
+            	else if (selector == 2)
+            	{
+            		inf.push_back(q);
+            	}
+            	else if (selector == 1)
+            	{
+            		inf.push_back(q);
+            	}
+            }
+            
+		for (int i = 0; i < par.size(); i++) 
+		{
+		    parent.push_back(Parent{par[i][0], par[i][1]});
+		}	
+
+		for (int i = 0; i < stu.size(); i++) 
+		{
+
+		    student.push_back(Student{stu[i][0],stu[i][1], std::stoi(stu[i][2])});
+		}
+		
+		       
+            
+        } catch (std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to open game"}.run();
+        }
+    }
+    
+    
+    	
+		for (int i = 0; i < par.size(); i++) 
+		{
+			
+			//inf.push_back(par[i][1]);
+		    for (int j = 2 ; par.at(i).size(); j ++)
+		  	{
+		    	//inf.push_back(par[i][j]);
+		    }
+		    //stu.push_back(inf);
+		}
+	      
+            
+        
+    
+
+	show_data();
+
+
+}
+
+
+
+void Mainwin::on_new_student_click(){
+ 
+   	Gtk::Dialog dialog{"Student's info", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label lname{"Name"};
+    Gtk::Entry ename;               
+
+    grid.attach(lname, 0, 1, 1, 1);
+    grid.attach(ename, 1, 2, 2, 1);
+
+    
+    Gtk::Label lemail{"Email"};
+    Gtk::Entry eemail;               
+
+    grid.attach(lemail, 0, 3, 1, 1);
+    grid.attach(eemail, 1, 4, 2, 1);
+
+    Gtk::Label lgrade{"Grade"};
+    Gtk::SpinButton sgrade;
+    sgrade.set_range(1,12);
+    sgrade.set_increments(1,5);       
+    sgrade.set_value(10);              
+
+    grid.attach(lgrade, 0, 5, 1, 1);
+    grid.attach(sgrade, 1, 6, 2, 1);
+
+   
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+	//waits till the cancle button disquized as an OK button is selected
+	
+	
+	if (ename.get_text().size() != 0) {
+    	if (eemail.get_text().size() != 0) {
+    	
+			student.push_back(Student{ename.get_text(),eemail.get_text(), sgrade.get_value_as_int()});	
+		
+        }
+	}
+	
+	show_data();
+			
+
+
+
+}       
+void Mainwin::on_new_parents_click(){
+	
+	Gtk::Dialog dialog{"Parent's info", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label lname{"Name"};
+    Gtk::Entry ename;               
+
+    grid.attach(lname, 0, 1, 1, 1);
+    grid.attach(ename, 1, 2, 2, 1);
+
+    
+    Gtk::Label lemail{"Email"};
+    Gtk::Entry eemail;               
+
+    grid.attach(lemail, 0, 3, 1, 1);
+    grid.attach(eemail, 1, 4, 2, 1);
+
+   
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+	//waits till the cancle button disquized as an OK button is selected
+	
+	
+	if (ename.get_text().size() != 0) {
+    	if (eemail.get_text().size() != 0) {
+    	
+			parent.push_back(Parent{ename.get_text(),eemail.get_text()});
+        
+        }
+	}
+	show_data();
+			
+
+	
+}   
+void Mainwin::on_student_to_parent_click(){
+
+	Gtk::Dialog dialog{"Parents and Children", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label d_par{"Pick a parent"};
+    Gtk::ComboBoxText c_par{true}; 
+	for (auto par : parent )
+	{
+		c_par.append(par.to_string());
+	}
+	c_par.set_active(0);
+	
+	grid.attach(d_par, 1, 0, 1, 1); 
+    grid.attach(c_par, 1, 1, 2, 1);
+    
+    Gtk::Label d_stu{"Pick the parent's student"};
+    Gtk::ComboBoxText c_stu{true}; 
+	for (auto stu : student )
+	{
+		c_stu.append(stu.to_string());
+	}
+	c_stu.set_active(0);
+	
+	grid.attach(d_stu, 1, 2, 1, 1); 
+    grid.attach(c_stu, 1, 3, 2, 1);
+
+	dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+    //waits till the cancle button disquized as an OK button is selected
+	
+	if (c_stu.get_active_row_number() != -1 && c_par.get_active_row_number() != -1)
+	{
+		int s = c_stu.get_active_row_number();
+		int p = c_par.get_active_row_number();
+		parent.at(p).add_student(student.at(s)); 
+		student.at(s).add_parent(parent.at(p));
+	}
+	   	
+   	show_data();
+}
+
+void Mainwin::show_data() {
+
+	std::string s = "\tParents:\n\n";
+	for (auto par : parent )
+	{
+		s += par.full_info();
+	}
+	s += "\n\tStudents:\n\n";
+	for (auto stu : student )
+	{
+		s+= stu.full_info();
+	}
+
+    display->set_markup(s);
+}
+
+void Mainwin::on_easter_egg() {
+    const std::vector<std::string> names{
+        "Enrique Young",  // student
+        "Isabella Young", // student
+        "Biniti Adani", // student
+        "James Montgomery", //student
+        "Robert Young",
+        "Susan Young",
+        "Nimish Adani",
+        "Oscar Montgomery",
+      };
+    const std::vector<std::string> emails{
+        "eyoung@gmale.com",
+        "iyoung@fmale.com",
+        "biniti@myschool.org",
+        "james.q.montgomery@british.uk",
+        "bob-young@woohoo.com",
+        "youngsr@uta.edu",
+        "nimish.adani@hatmail.com",
+        "oscar.the.m@funville.net",
+      };
+    const std::vector<int> grades {
+          1, 5, 3, 12, // For students only
+      };
+    try {
+        on_new_school_click();
+        for(int i=0; i<grades.size(); ++i)
+            student.push_back(Student{names[i], emails[i], grades[i]});
+        for(int i=grades.size(); i<names.size(); ++i)
+           parent.push_back(Parent{names[i], emails[i]});
+        student[0].add_parent(parent[0]); parent[0].add_student(student[0]);
+        student[0].add_parent(parent[1]); parent[1].add_student(student[0]);
+        student[1].add_parent(parent[0]); parent[0].add_student(student[1]);
+        student[1].add_parent(parent[1]); parent[1].add_student(student[1]);
+        student[2].add_parent(parent[2]); parent[2].add_student(student[2]);
+        student[2].add_parent(parent[1]); parent[1].add_student(student[2]);
+        student[3].add_parent(parent[1]); parent[1].add_student(student[3]);
+        student[3].add_parent(parent[2]); parent[2].add_student(student[3]);
+        student[3].add_parent(parent[3]); parent[3].add_student(student[3]);
+        show_data();
+    } catch(std::exception& e) {
+        Gtk::MessageDialog{*this, e.what()}.run();
+    }
+}
+

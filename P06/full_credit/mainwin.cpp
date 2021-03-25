@@ -2,11 +2,16 @@
 #include "entrydialog.h"
 #include <iostream> // for std::cerr logging
 
+const int MAX_STUDENTS = 100;
+const int MAX_PARENTS = 400;
+
 Mainwin::Mainwin() {
     // /////////////////
     // G U I   S E T U P
     // /////////////////
-
+    student.reserve(MAX_STUDENTS);
+	parent.reserve(MAX_PARENTS);
+	
     set_default_size(550, 250);
     set_title("School Management And Reporting Tool(S.M.A.R.T.)");
 
@@ -249,30 +254,13 @@ void Mainwin::on_student_to_parent_click(){
 
     while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
     //waits till the cancle button disquized as an OK button is selected
-    
-    for (int i = 0 ; i < student.size(); i++ )
-	{
-		
-		if (i == c_stu.get_active_row_number())
-		{
-			for (int j = 0 ; j < parent.size(); j++ )
-			{
-				
-				if (i == c_par.get_active_row_number())
-				{
-					
-					parent.at(j).add_student(student.at(i));
-				
-					student.at(i).add_parent(parent.at(j));
-				
-					break;
-					
-				}
-			}
-		}
-	}
-   	
-   	
+
+	int s = c_stu.get_active_row_number();
+	int p = c_par.get_active_row_number();
+	parent.at(p).add_student(student.at(s)); 
+	student.at(s).add_parent(parent.at(p));
+
+	   	
    	show_data();
 }
 
@@ -306,7 +294,7 @@ void Mainwin::show_data() {
 		s = s + e.full_info() ;	
 		
 	}
-    display->set_text(s);
+    display->set_markup(s);
 
 }
 
