@@ -28,4 +28,4 @@ parent.o: parent.cpp *.h
 
 
 clean:       
-	rm -f *.o *.gch *~ a.out *sat SMART
+	rm -f *.o *.gch *~ a.out SMART 

@@ -136,9 +136,25 @@ Mainwin::Mainwin() {
     save_as_school_button->set_tooltip_markup("Save As");
     save_as_school_button->signal_clicked().connect([this] {this->on_save_as_click();});
     toolbar->append(*save_as_school_button);
+    
     Gtk::SeparatorToolItem *separator = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*separator);
-
+    
+    Gtk::ToolButton *new_student_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+    new_student_button->set_tooltip_markup("New Student");
+    new_student_button->signal_clicked().connect([this] {this->on_new_student_click();});
+    toolbar->append(*new_student_button);
+    
+  	Gtk::ToolButton *new_parent_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+    new_parent_button->set_tooltip_markup("New Parent");
+    new_parent_button->signal_clicked().connect([this] {this->on_new_parents_click();});
+    toolbar->append(*new_parent_button);
+    
+    
+    Gtk::ToolButton *student_to_parent_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+    student_to_parent_button->set_tooltip_markup("Relate a parent to a student");
+    student_to_parent_button->signal_clicked().connect([this] {this->on_student_to_parent_click();});
+    toolbar->append(*student_to_parent_button);
     // ////////////////////////////////////////////////////////////////////////
     // P E O P L E   D I S P L A Y
     // Provide a text entry box to show the remaining sticks
