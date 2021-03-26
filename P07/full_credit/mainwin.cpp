@@ -151,7 +151,7 @@ Mainwin::Mainwin() {
     // Make the box and everything in it visible
     vbox->show_all();
 
-    // Start a new game
+    // Start a new school
     on_new_school_click();
 }
 
@@ -183,10 +183,10 @@ void Mainwin::on_save_as_click() {
     Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
     dialog.set_transient_for(*this);
 
-    auto filter_nim = Gtk::FileFilter::create();
-    filter_nim->set_name("SAT files");
-    filter_nim->add_pattern("*.sat");
-    dialog.add_filter(filter_nim);
+    auto filter_f = Gtk::FileFilter::create();
+    filter_f->set_name("SAT files");
+    filter_f->add_pattern("*.sat");
+    dialog.add_filter(filter_f);
  
     auto filter_any = Gtk::FileFilter::create();
     filter_any->set_name("Any files");
@@ -265,10 +265,10 @@ void Mainwin::on_open_click() {
           Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
     dialog.set_transient_for(*this);
 
-    auto filter_nim = Gtk::FileFilter::create();
-    filter_nim->set_name("SAT files");
-    filter_nim->add_pattern("*.sat");
-    dialog.add_filter(filter_nim);
+    auto filter_f = Gtk::FileFilter::create();
+    filter_f->set_name("SAT files");
+    filter_f->add_pattern("*.sat");
+    dialog.add_filter(filter_f);
  
     auto filter_any = Gtk::FileFilter::create();
     filter_any->set_name("Any files");
@@ -283,6 +283,9 @@ void Mainwin::on_open_click() {
 
     int result = dialog.run();
 	int selector = 0; 
+	int pa = 0;
+	int st = 0;
+	
 	std::vector<std::vector<std::string>> par; 
 	std::vector<std::vector<std::string>> stu;
 	std::vector<std::string> inf;	
@@ -308,13 +311,14 @@ void Mainwin::on_open_click() {
             	{
             		par.push_back(inf);
             		inf.clear();
+            		pa++;
             		
             	}
             	else if (q == "End Student")
             	{
             		stu.push_back(inf);
             		inf.clear();
-            		
+            		st++;
             	}
             	else if (selector == 2)
             	{
@@ -340,7 +344,7 @@ void Mainwin::on_open_click() {
 		       
             
         } catch (std::exception& e) {
-            Gtk::MessageDialog{*this, "Unable to open game"}.run();
+            Gtk::MessageDialog{*this, "Unable to open file"}.run();
         }
     }
     
@@ -350,9 +354,16 @@ void Mainwin::on_open_click() {
 		{
 			
 			//inf.push_back(par[i][1]);
-		    for (int j = 2 ; par.at(i).size(); j ++)
+		    for (int j = 2 ; j <par.at(i).size(); j ++)
 		  	{
-		    	//inf.push_back(par[i][j]);
+		    	for (int k = 0; k < st; k++)
+		    	{
+		    		if (par.at(i).at(j) == student[k].to_string())
+		    		{
+		    			parent.at(i).add_student(student.at(k)); 
+						student.at(k).add_parent(parent.at(i));
+		    		}
+		    	}
 		    }
 		    //stu.push_back(inf);
 		}

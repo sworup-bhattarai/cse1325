@@ -59,14 +59,14 @@ Student& Parent::student(int index)
 std::string Parent::full_info() const
 {
 	std::string info = "";
-
+	std::string c = " ";
 
 	info = _name + " (" + _email + ")" + " Student: " ;
 	for(int i = 0; i < _students.size(); i++)
 	{
 	
-		info += _students.at(i)->to_string() + " ";
-	
+		info +=  c + _students.at(i)->to_string() ;
+		c = ", ";
 	}
 	info += "\n";
 	return info ;
