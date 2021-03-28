@@ -20,7 +20,8 @@ class Mainwin : public Gtk::Window {
         void on_save_as_click();           // Save the game to a file
         void on_save_click();
         void on_open_click(); 
-        void on_easter_egg();           
+        void on_easter_egg(); 
+        void on_about_click();          
     private:
 	std::vector<Student> student;
 	std::vector<Parent> parent;

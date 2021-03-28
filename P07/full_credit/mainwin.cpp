@@ -72,15 +72,15 @@ Mainwin::Mainwin() {
 
     //           N E W  S T U D E N T
     // Append Rules to the Insert menu
-    Gtk::MenuItem *menuitem_rules = Gtk::manage(new Gtk::MenuItem("New _Student", true));
-    menuitem_rules->signal_activate().connect([this] {this->on_new_student_click();});
-    insertmenu->append(*menuitem_rules);
+    Gtk::MenuItem *menuitem_student = Gtk::manage(new Gtk::MenuItem("New _Student", true));
+    menuitem_student->signal_activate().connect([this] {this->on_new_student_click();});
+    insertmenu->append(*menuitem_student);
 
     //           N E W  P A R E N T 
     // Append About to the Insert menu
-    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("New _Parent", true));
-    menuitem_about->signal_activate().connect([this] {this->on_new_parents_click();});
-    insertmenu->append(*menuitem_about);
+    Gtk::MenuItem *menuitem_parent = Gtk::manage(new Gtk::MenuItem("New _Parent", true));
+    menuitem_parent->signal_activate().connect([this] {this->on_new_parents_click();});
+    insertmenu->append(*menuitem_parent);
     
     //         T E S T   D A T A
     // Append Test Data to the Insert menu
@@ -99,7 +99,20 @@ Mainwin::Mainwin() {
     // Append Rules to the Insert menu
     Gtk::MenuItem *menuitem_stp = Gtk::manage(new Gtk::MenuItem("_Student to parent", true));
     menuitem_stp->signal_activate().connect([this] {this->on_student_to_parent_click();});
-    relatemenu->append(*menuitem_stp);    
+    relatemenu->append(*menuitem_stp);  
+    
+    //     H E L P
+    // Create a Help menu and add to the menu bar
+    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+    menubar->append(*menuitem_help);
+    Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_help->set_submenu(*helpmenu);
+
+    //           A B O U T
+    // Append About to the Help menu
+    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
+    menuitem_about->signal_activate().connect([this] {this->on_about_click();});
+    helpmenu->append(*menuitem_about);  
     
 
     // ///////////// //////////////////////////////////////////////////////////
@@ -140,18 +153,24 @@ Mainwin::Mainwin() {
     Gtk::SeparatorToolItem *separator = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*separator);
     
-    Gtk::ToolButton *new_student_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+    Gtk::Image* new_student_button_image = Gtk::manage(new Gtk::Image{"student.png"});
+    Gtk::ToolButton *new_student_button;
+    new_student_button = Gtk::manage(new Gtk::ToolButton(*new_student_button_image));
     new_student_button->set_tooltip_markup("New Student");
     new_student_button->signal_clicked().connect([this] {this->on_new_student_click();});
     toolbar->append(*new_student_button);
     
-  	Gtk::ToolButton *new_parent_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+  	Gtk::Image* new_parent_button_image = Gtk::manage(new Gtk::Image{"parent.png"});
+    Gtk::ToolButton *new_parent_button;
+    new_parent_button = Gtk::manage(new Gtk::ToolButton(*new_parent_button_image));
     new_parent_button->set_tooltip_markup("New Parent");
     new_parent_button->signal_clicked().connect([this] {this->on_new_parents_click();});
     toolbar->append(*new_parent_button);
     
     
-    Gtk::ToolButton *student_to_parent_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::SAVE_AS));
+	Gtk::Image* student_to_parent_button_image = Gtk::manage(new Gtk::Image{"student_and_parent.png"});
+    Gtk::ToolButton *student_to_parent_button;
+    student_to_parent_button = Gtk::manage(new Gtk::ToolButton(*student_to_parent_button_image));
     student_to_parent_button->set_tooltip_markup("Relate a parent to a student");
     student_to_parent_button->signal_clicked().connect([this] {this->on_student_to_parent_click();});
     toolbar->append(*student_to_parent_button);
@@ -598,4 +617,25 @@ void Mainwin::on_easter_egg() {
         Gtk::MessageDialog{*this, e.what()}.run();
     }
 }
+
+void Mainwin::on_about_click() {
+    Gtk::AboutDialog dialog;
+    dialog.set_transient_for(*this); // Avoid the discouraging warning
+    dialog.set_program_name("S.M.A.R.T.");
+    auto logo = Gdk::Pixbuf::create_from_file("19197906.png");
+    dialog.set_logo(logo);
+    dialog.set_version("Version 0.2.0");
+    dialog.set_copyright("Copyright 2021-2022");
+    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+    std::vector< Glib::ustring > authors = {"Sworup Bhattarai"};
+    dialog.set_authors(authors);
+    std::vector< Glib::ustring > artists = {
+        "Logo by macrovector, licensed under CC BY-SA 3.0  https://image.freepik.com/free-vector/school-building-with-without-textures_1284-52251.jpg",
+        "Student and Parent Icons made by Freepik, licensed under CC BY-SA 3.0  https://www.flaticon.com/packs/social-media-81"};
+    dialog.set_artists(artists);
+    dialog.run();
+}
+
+
+
 
