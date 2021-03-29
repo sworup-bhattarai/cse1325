@@ -34,11 +34,13 @@ void Student::save(std::ostream& ost)
 	ost << _name << std::endl;
 	ost << _email << std::endl;
 	ost << std::to_string(_grade) << std::endl;
+	//ost << "students parent" << std::endl;
 	for (auto s : _parents)
 	{
 		ost << s->to_string() << std::endl;
 	
 	}
+	//ost << "End students parent" << std::endl;
 	ost << "End Student" << std::endl;
 }
 

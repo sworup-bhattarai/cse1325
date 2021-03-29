@@ -364,7 +364,9 @@ void Mainwin::on_open_click() {
             		inf.push_back(q);
             	}
             }
-            
+//
+// creating parent and student
+//    
 		for (int i = 0; i < par.size(); i++) 
 		{
 		    parent.push_back(Parent{par[i][0], par[i][1]});
@@ -375,33 +377,28 @@ void Mainwin::on_open_click() {
 
 		    student.push_back(Student{stu[i][0],stu[i][1], std::stoi(stu[i][2])});
 		}
-		
-		       
-            
+   
         } catch (std::exception& e) {
             Gtk::MessageDialog{*this, "Unable to open file"}.run();
         }
     }
-    
-    
-    	
-		for (int i = 0; i < par.size(); i++) 
-		{
-			
-			//inf.push_back(par[i][1]);
-		    for (int j = 2 ; j <par.at(i).size(); j ++)
-		  	{
-		    	for (int k = 0; k < st; k++)
-		    	{
-		    		if (par.at(i).at(j) == student[k].to_string())
-		    		{
-		    			parent.at(i).add_student(student.at(k)); 
-						student.at(k).add_parent(parent.at(i));
-		    		}
-		    	}
-		    }
-		    //stu.push_back(inf);
-		}
+//    
+// maching Parent and student    
+//    	
+	for (int i = 0; i < par.size(); i++) 
+	{
+	    for (int j = 2 ; j <par.at(i).size(); j ++)
+	  	{
+	    	for (int k = 0; k < st; k++)
+	    	{
+	    		if (par.at(i).at(j) == student[k].to_string())
+	    		{
+	    			parent.at(i).add_student(student.at(k)); 
+					student.at(k).add_parent(parent.at(i));
+	    		}
+	    	}
+	    }
+	}
 	      
             
         
@@ -626,7 +623,7 @@ void Mainwin::on_about_click() {
     dialog.set_logo(logo);
     dialog.set_version("Version 0.2.0");
     dialog.set_copyright("Copyright 2021-2022");
-    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+    dialog.set_license_type(Gtk::License::LICENSE_AGPL_3_0_ONLY);
     std::vector< Glib::ustring > authors = {"Sworup Bhattarai"};
     dialog.set_authors(authors);
     std::vector< Glib::ustring > artists = {
