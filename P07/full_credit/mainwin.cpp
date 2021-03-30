@@ -628,7 +628,8 @@ void Mainwin::on_about_click() {
     dialog.set_authors(authors);
     std::vector< Glib::ustring > artists = {
         "Logo by macrovector, licensed under CC BY-SA 3.0  https://image.freepik.com/free-vector/school-building-with-without-textures_1284-52251.jpg",
-        "Student and Parent Icons made by Freepik, licensed under CC BY-SA 3.0  https://www.flaticon.com/packs/social-media-81"};
+        "Student and Parent Icons made by Freepik, licensed under CC BY-SA 3.0  https://www.flaticon.com/packs/social-media-81",
+        "Made in collabration with Professor George F. Rice from The Univercity Of Texas At Arlington https://github.com/prof-rice"};
     dialog.set_artists(artists);
     dialog.run();
 }
