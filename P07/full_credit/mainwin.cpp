@@ -21,6 +21,7 @@ Mainwin::Mainwin() {
 
     // /////// ////////////////////////////////////////////////////////////////
     // M E N U
+    // /////// ////////////////////////////////////////////////////////////////
     // Add a menu bar as the top item in the vertical box
     Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar);
     vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
@@ -29,6 +30,8 @@ Mainwin::Mainwin() {
     // Create a File menu and add to the menu bar
     Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
     menubar->append(*menuitem_file);
+    
+    //for the sub menu/ drop-down menu
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
@@ -117,6 +120,9 @@ Mainwin::Mainwin() {
 
     // ///////////// //////////////////////////////////////////////////////////
     // T O O L B A R
+    // ///////////// //////////////////////////////////////////////////////////
+    
+    
     // Add a toolbar to the vertical box below the menu
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
