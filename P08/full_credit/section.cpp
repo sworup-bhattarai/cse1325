@@ -12,11 +12,11 @@ Section::Section(Course course, Semester semester, int year) : _year(year) , _co
 
 void Section::save(std::ostream& ost)
 {
-	/* << "Section" << std::endl;
-	ost << _course << std::endl;
+	ost << "Section" << std::endl;
+	ost << _course ;
 	ost << ::to_string(_semester) << std::endl;
 	ost << _year << std::endl;
-	ost << "End Section" << std::endl;*/
+	ost << "End Section" << std::endl;
 	
 }
 

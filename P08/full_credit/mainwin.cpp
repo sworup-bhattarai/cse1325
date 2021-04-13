@@ -230,6 +230,25 @@ Mainwin::Mainwin() {
     student_to_parent_button->set_tooltip_markup("Relate a parent to a student");
     student_to_parent_button->signal_clicked().connect([this] {this->on_student_to_parent_click();});
     toolbar->append(*student_to_parent_button);
+    
+        
+    Gtk::SeparatorToolItem *separator2 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*separator2);
+    
+     //     O P E N  S C H O O L
+    // Add a open school icon
+    Gtk::ToolButton *view_courses_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    view_courses_button->set_tooltip_markup("Show Courses");
+    view_courses_button->signal_clicked().connect([this] {this->show_data(2);});
+    toolbar->append(*view_courses_button);
+    
+     //     S A V E  S C H O O L
+    // Add a save school icon
+    Gtk::ToolButton *view_section_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    view_section_button->set_tooltip_markup("Show Sections");
+    view_section_button->signal_clicked().connect([this] {this->show_data(3);});
+    toolbar->append(*view_section_button);
+    
     // ////////////////////////////////////////////////////////////////////////
     // P E O P L E   D I S P L A Y
     // Provide a text entry box to show the remaining sticks
@@ -302,6 +321,14 @@ void Mainwin::on_save_as_click() {
 				p.save(ofs);
 			}
 			for (auto s : student)
+			{
+				s.save(ofs);
+			}
+			for (auto s : course)
+			{
+				s.save(ofs);
+			}
+			for (auto s : section)
 			{
 				s.save(ofs);
 			}

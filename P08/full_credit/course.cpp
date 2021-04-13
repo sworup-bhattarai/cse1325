@@ -13,8 +13,10 @@ Course::Course(Subject subject, int grade) : _subject(subject), _grade(grade)
 void Course::save(std::ostream& ost)
 {
 	
+	ost << "Course" << std::endl;
 	ost << to_string(_subject) << std::endl;
 	ost << _grade << std::endl;
+	ost << "End Course" << std::endl;
 	
 }
 
