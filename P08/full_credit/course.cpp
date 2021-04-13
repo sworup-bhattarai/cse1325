@@ -18,9 +18,9 @@ void Course::save(std::ostream& ost)
 	
 }
 
-std::ostream& operator<<(std::ostream& oat, Course& course )
+std::ostream& operator<<(std::ostream& oat, const Course& course )
 {
-	//ost << to_string(_subject) << std::endl;
-	//ost << _grade << std::endl;
+	oat << to_string(course._subject) ;
+	oat << " (grade " << course._grade << ")" << std::endl;
 	return oat;
 }

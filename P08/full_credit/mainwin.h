@@ -2,7 +2,11 @@
 #define __MAINWIN_H
 
 #include <gtkmm.h>
+#include <ostream>
+#include <istream>
 #include <vector>
+#include <iostream>
+#include <sstream>
 #include "person.h"
 #include "parent.h"
 #include "student.h"
@@ -34,10 +38,14 @@ class Mainwin : public Gtk::Window {
 	std::vector<Student> student;
 	std::vector<Parent> parent;
 	std::vector<Course> course;
-	std::vector<std::string> section;
+	std::vector<Section> section;
+	std::vector<std::string> sect;
+	std::vector<std::string> semester;
     Gtk::Label *display;                      // Display of sticks on game board
-    void show_data();
+    void show_data(int a);
 	std::string _filename;
+	std::ostringstream lett;
+	
 };
 #endif 
 

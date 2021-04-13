@@ -10,14 +10,19 @@ Mainwin::Mainwin() {
     // /////////////////
     // G U I   S E T U P
     // /////////////////
+    
     student.reserve(MAX_STUDENTS);
 	parent.reserve(MAX_PARENTS);
-	section.push_back("Reading");
-	section.push_back("Writing");
-	section.push_back("Math");
-	section.push_back("Science");
-	section.push_back("History");
-	section.push_back("Art");
+	sect.push_back("Reading");
+	sect.push_back("Writing");
+	sect.push_back("Math");
+	sect.push_back("Science");
+	sect.push_back("History");
+	sect.push_back("Art");
+	semester.push_back("Fall");
+	semester.push_back("Spring");
+	semester.push_back("Summer");
+	
 	
     set_default_size(550, 250);
     set_title("School Management And Reporting Tool(S.M.A.R.T.)");
@@ -97,6 +102,12 @@ Mainwin::Mainwin() {
     Gtk::MenuItem *menuitem_course = Gtk::manage(new Gtk::MenuItem("New _Course", true));
     menuitem_course->signal_activate().connect([this] {this->on_new_course();});
     insertmenu->append(*menuitem_course);
+    
+    //           N E W  S E C T I O N 
+    // Append About to the Insert menu
+    Gtk::MenuItem *menuitem_section = Gtk::manage(new Gtk::MenuItem("New _Section", true));
+    menuitem_section->signal_activate().connect([this] {this->on_new_section();});
+    insertmenu->append(*menuitem_section);
         
     //         T E S T   D A T A
     // Append Test Data to the Insert menu
@@ -112,25 +123,36 @@ Mainwin::Mainwin() {
     menuitem_relate->set_submenu(*relatemenu);
 
     //           S T U D E N T  T O  P A R E N T 
-    // Append Rules to the Insert menu
+    // Connects parents and students
     Gtk::MenuItem *menuitem_stp = Gtk::manage(new Gtk::MenuItem("_Student to parent", true));
     menuitem_stp->signal_activate().connect([this] {this->on_student_to_parent_click();});
     relatemenu->append(*menuitem_stp); 
     
     //     	V I E W 
-    // Create a Relate menu and add to the menu bar
+    // Create a View menu and add to the menu bar
     Gtk::MenuItem *menuitem_view = Gtk::manage(new Gtk::MenuItem("_View", true));
     menubar->append(*menuitem_view);
     Gtk::Menu *viewmenu = Gtk::manage(new Gtk::Menu());
     menuitem_view->set_submenu(*viewmenu);
 
-    //           S T U D E N T  T O  P A R E N T 
-    // Append Rules to the Insert menu
+    //           S T U D E N T  A N D  P A R E N T 
+    // Shows parents and students
     Gtk::MenuItem *menuitem_sap = Gtk::manage(new Gtk::MenuItem("Student _and parent", true));
-    menuitem_sap->signal_activate().connect([this] {this->show_data();});
+    menuitem_sap->signal_activate().connect([this] {this->show_data(1);});
     viewmenu->append(*menuitem_sap); 
     
-     
+    //           C O U R S E
+    // Shows parents and students
+    Gtk::MenuItem *menuitem_cou = Gtk::manage(new Gtk::MenuItem("_Courses", true));
+    menuitem_cou->signal_activate().connect([this] {this->show_data(2);});
+    viewmenu->append(*menuitem_cou); 
+        
+    //           S E C T I O N
+    // Shows parents and students
+    Gtk::MenuItem *menuitem_sec = Gtk::manage(new Gtk::MenuItem("_Sections", true));
+    menuitem_sec->signal_activate().connect([this] {this->show_data(3);});
+    viewmenu->append(*menuitem_sec); 
+    
     
     //     H E L P
     // Create a Help menu and add to the menu bar
@@ -213,7 +235,7 @@ Mainwin::Mainwin() {
     // Provide a text entry box to show the remaining sticks
     display = Gtk::manage(new Gtk::Label());
 	
-	show_data();
+	show_data(1);
     vbox->add(*display);
     
 
@@ -239,7 +261,7 @@ void Mainwin::on_new_school_click() {
     
     student.clear();
     parent.clear();
-    show_data();
+    show_data(1);
  
 }
 
@@ -438,7 +460,7 @@ void Mainwin::on_open_click() {
         
     
 
-	show_data();
+	show_data(1);
 
 
 }
@@ -492,7 +514,7 @@ void Mainwin::on_new_student_click(){
         }
 	}
 	
-	show_data();
+	show_data(1);
 			
 
 
@@ -535,7 +557,7 @@ void Mainwin::on_new_parents_click(){
         
         }
 	}
-	show_data();
+	show_data(1);
 			
 
 	
@@ -585,7 +607,7 @@ void Mainwin::on_student_to_parent_click(){
 		student.at(s).add_parent(parent.at(p));
 	}
 	   	
-   	show_data();
+   	show_data(1);
 }
 
 void Mainwin::on_new_course(){
@@ -594,7 +616,7 @@ void Mainwin::on_new_course(){
     
     Gtk::Label d_sec{"Pick a Subject"};
     Gtk::ComboBoxText c_sec{true}; 
-	for (auto sec : section )
+	for (auto sec : sect )
 	{
 		c_sec.append(sec);
 	}
@@ -628,31 +650,146 @@ void Mainwin::on_new_course(){
     {
 
     }
-    else if (section.at(s) == "Reading")
-    {
-    	std::cout << "reading" << std::endl;
+    else if (sect.at(s) == "Reading")
+    {;
     	course.push_back(Course{Subject::READING,sgrade.get_value_as_int()});
+    }
+    else if (sect.at(s) == "Writing")
+    {
+    	course.push_back(Course{Subject::WRITING,sgrade.get_value_as_int()});
+    }
+    else if (sect.at(s) == "Math")
+    {
+    	course.push_back(Course{Subject::MATH,sgrade.get_value_as_int()});
+    }
+    else if (sect.at(s) == "Science")
+    {
+    	course.push_back(Course{Subject::SCIENCE,sgrade.get_value_as_int()});
+    }
+    else if (sect.at(s) == "History")
+    {
+    	course.push_back(Course{Subject::HISTORY,sgrade.get_value_as_int()});
+    }
+    else if (sect.at(s) == "Art")
+    {
+    	course.push_back(Course{Subject::ART,sgrade.get_value_as_int()});
     }
 	
 }
 void Mainwin::on_new_section(){
+	lett.str("");
+	std::string str;
+	Gtk::Dialog dialog{"Create a Section", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label d_sec{"Pick a Course"};
+    Gtk::ComboBoxText c_sec{true}; 
+	for (auto sec : course)
+	{
+		lett << sec;
+		str = lett.str();
+		c_sec.append(str);
+		lett.str("");
+	}
+	c_sec.set_active(0);
+	
+	grid.attach(d_sec, 0, 0, 1, 1); 
+    grid.attach(c_sec, 0, 1, 2, 1);
+    
+    Gtk::Label lyear{"Enter the Year(2000-2022)"};
+    Gtk::SpinButton syear;
+    syear.set_range(2000,2021);
+    syear.set_increments(1,5);       
+    syear.set_value(2020);              
+
+    grid.attach(lyear, 0, 3, 1, 1);
+    grid.attach(syear, 0, 4, 2, 1);
+
+ 	Gtk::Label d_sem{"Pick a Semester"};
+    Gtk::ComboBoxText c_sem{true}; 
+	for (auto sem : semester )
+	{
+		c_sem.append(sem);
+	}
+	c_sem.set_active(0);
+	
+	grid.attach(d_sem, 0, 5, 1, 1); 
+    grid.attach(c_sem, 0, 6, 2, 1);
+    
+	dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
+    dialog.add_button("Cancle", Gtk::RESPONSE_ACCEPT); 
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+    //waits till the cancle button disquized as an OK button is selected
+    int s = c_sem.get_active_row_number();
+    int p = c_sec.get_active_row_number();
+    if (response == Gtk::RESPONSE_ACCEPT)
+    {
+
+    }
+    else if (semester.at(s) == "Fall")
+    {
+    	section.push_back(Section{course.at(p), Semester::FALL, syear.get_value_as_int()});
+    }
+    else if (semester.at(s) == "Spring")
+    {
+    	section.push_back(Section{course.at(p), Semester::SPRING, syear.get_value_as_int()});
+    }
+    else if (semester.at(s) == "Summer")
+    {
+    	section.push_back(Section{course.at(p), Semester::SUMMER, syear.get_value_as_int()});
+    }
+
+
+
+
+
 
 }
 
-void Mainwin::show_data() {
+void Mainwin::show_data(int a) {
+	lett.str("");
+	std::string s;
+	if (a == 1){
+		s = "\tParents:\n\n";
+		for (auto par : parent )
+		{
+			s += par.full_info();
+		}
+		s += "\n\tStudents:\n\n";
+		for (auto stu : student )
+		{
+			s+= stu.full_info();
+		}
 
-	std::string s = "\tParents:\n\n";
-	for (auto par : parent )
-	{
-		s += par.full_info();
+		display->set_markup(s);
 	}
-	s += "\n\tStudents:\n\n";
-	for (auto stu : student )
+	else if (a == 2)
 	{
-		s+= stu.full_info();
+		lett << "\tCourses:\n\n";
+		for (auto cour : course)
+		{
+			lett << cour;
+		}
+		s = lett.str();
+		display->set_markup(s);
 	}
-
-    display->set_markup(s);
+	else if (a == 3)
+	{
+		lett << "\tSections:\n\n";
+		for (auto sect : section)
+		{
+			lett << sect;
+		}
+		s = lett.str();
+		display->set_markup(s);
+	}	
+		
 }
 
 void Mainwin::on_easter_egg() {
@@ -694,7 +831,7 @@ void Mainwin::on_easter_egg() {
         student[3].add_parent(parent[1]); parent[1].add_student(student[3]);
         student[3].add_parent(parent[2]); parent[2].add_student(student[3]);
         student[3].add_parent(parent[3]); parent[3].add_student(student[3]);
-        show_data();
+        show_data(1);
     } catch(std::exception& e) {
         Gtk::MessageDialog{*this, e.what()}.run();
     }

@@ -19,7 +19,7 @@ class Section{
 		Section(Course course, Semester semester, int year);
 		//Section(std::istream& ist);
 		void save(std::ostream& ost);
-		friend std::ostream& operator << (std::ostream& ost,const Section& section );
+		friend std::ostream& operator<<(std::ostream& ost,const Section& section );
 };
 #endif
 

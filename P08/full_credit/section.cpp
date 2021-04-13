@@ -20,7 +20,8 @@ void Section::save(std::ostream& ost)
 	
 }
 
-std::ostream& operator<<(std::ostream& oat, Section& section)
+std::ostream& operator<<(std::ostream& oat, const Section& section)
 {
+	oat << section._course << "\t\tfor "<< to_string(section._semester) << " " << section._year << std::endl;
 	return oat;
 }
