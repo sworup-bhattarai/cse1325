@@ -5,12 +5,19 @@
 const int MAX_STUDENTS = 100;
 const int MAX_PARENTS = 400;
 
+
 Mainwin::Mainwin() {
     // /////////////////
     // G U I   S E T U P
     // /////////////////
     student.reserve(MAX_STUDENTS);
 	parent.reserve(MAX_PARENTS);
+	section.push_back("Reading");
+	section.push_back("Writing");
+	section.push_back("Math");
+	section.push_back("Science");
+	section.push_back("History");
+	section.push_back("Art");
 	
     set_default_size(550, 250);
     set_title("School Management And Reporting Tool(S.M.A.R.T.)");
@@ -84,7 +91,13 @@ Mainwin::Mainwin() {
     Gtk::MenuItem *menuitem_parent = Gtk::manage(new Gtk::MenuItem("New _Parent", true));
     menuitem_parent->signal_activate().connect([this] {this->on_new_parents_click();});
     insertmenu->append(*menuitem_parent);
-    
+
+    //           N E W  C O U R S E 
+    // Append About to the Insert menu
+    Gtk::MenuItem *menuitem_course = Gtk::manage(new Gtk::MenuItem("New _Course", true));
+    menuitem_course->signal_activate().connect([this] {this->on_new_course();});
+    insertmenu->append(*menuitem_course);
+        
     //         T E S T   D A T A
     // Append Test Data to the Insert menu
     Gtk::MenuItem *menuitem_test_data = Gtk::manage(new Gtk::MenuItem("_Test Data", true));
@@ -102,7 +115,22 @@ Mainwin::Mainwin() {
     // Append Rules to the Insert menu
     Gtk::MenuItem *menuitem_stp = Gtk::manage(new Gtk::MenuItem("_Student to parent", true));
     menuitem_stp->signal_activate().connect([this] {this->on_student_to_parent_click();});
-    relatemenu->append(*menuitem_stp);  
+    relatemenu->append(*menuitem_stp); 
+    
+    //     	V I E W 
+    // Create a Relate menu and add to the menu bar
+    Gtk::MenuItem *menuitem_view = Gtk::manage(new Gtk::MenuItem("_View", true));
+    menubar->append(*menuitem_view);
+    Gtk::Menu *viewmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_view->set_submenu(*viewmenu);
+
+    //           S T U D E N T  T O  P A R E N T 
+    // Append Rules to the Insert menu
+    Gtk::MenuItem *menuitem_sap = Gtk::manage(new Gtk::MenuItem("Student _and parent", true));
+    menuitem_sap->signal_activate().connect([this] {this->show_data();});
+    viewmenu->append(*menuitem_sap); 
+    
+     
     
     //     H E L P
     // Create a Help menu and add to the menu bar
@@ -558,6 +586,57 @@ void Mainwin::on_student_to_parent_click(){
 	}
 	   	
    	show_data();
+}
+
+void Mainwin::on_new_course(){
+	Gtk::Dialog dialog{"Create a Course", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label d_sec{"Pick a Subject"};
+    Gtk::ComboBoxText c_sec{true}; 
+	for (auto sec : section )
+	{
+		c_sec.append(sec);
+	}
+	c_sec.set_active(0);
+	
+	grid.attach(d_sec, 1, 0, 1, 1); 
+    grid.attach(c_sec, 1, 1, 2, 1);
+    
+    Gtk::Label lgrade{"Grade"};
+    Gtk::SpinButton sgrade;
+    sgrade.set_range(1,12);
+    sgrade.set_increments(1,5);       
+    sgrade.set_value(10);              
+
+    grid.attach(lgrade, 1, 2, 1, 1);
+    grid.attach(sgrade, 1, 3, 2, 1);
+
+    
+	dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
+    dialog.add_button("Cancle", Gtk::RESPONSE_ACCEPT); 
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+    //waits till the cancle button disquized as an OK button is selected
+    int s = c_sec.get_active_row_number();
+    if (response == Gtk::RESPONSE_ACCEPT)
+    {
+
+    }
+    else if (section.at(s) == "Reading")
+    {
+    	std::cout << "reading" << std::endl;
+    	course.push_back(Course{Subject::READING,sgrade.get_value_as_int()});
+    }
+	
+}
+void Mainwin::on_new_section(){
+
 }
 
 void Mainwin::show_data() {
