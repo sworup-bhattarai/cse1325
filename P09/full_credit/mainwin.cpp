@@ -22,6 +22,13 @@ Mainwin::Mainwin() {
 	semester.push_back("Fall");
 	semester.push_back("Spring");
 	semester.push_back("Summer");
+	grade.push_back("A");
+	grade.push_back("B");
+	grade.push_back("C");
+	grade.push_back("D");
+	grade.push_back("F");
+	grade.push_back("I");
+	grade.push_back("X");
 	
 	
     set_default_size(550, 250);
@@ -108,6 +115,12 @@ Mainwin::Mainwin() {
     Gtk::MenuItem *menuitem_section = Gtk::manage(new Gtk::MenuItem("New _Section", true));
     menuitem_section->signal_activate().connect([this] {this->on_new_section();});
     insertmenu->append(*menuitem_section);
+    
+        //           N E W  T R A N S C R I P T 
+    // Append About to the Insert menu
+    Gtk::MenuItem *menuitem_transcript = Gtk::manage(new Gtk::MenuItem("New _Transcript", true));
+    menuitem_transcript->signal_activate().connect([this] {this->on_new_transcript();});
+    insertmenu->append(*menuitem_transcript);
         
     //         T E S T   D A T A
     // Append Test Data to the Insert menu
@@ -152,6 +165,13 @@ Mainwin::Mainwin() {
     Gtk::MenuItem *menuitem_sec = Gtk::manage(new Gtk::MenuItem("_Sections", true));
     menuitem_sec->signal_activate().connect([this] {this->show_data(3);});
     viewmenu->append(*menuitem_sec); 
+    
+        //           T R A N S C R I P T
+    // Shows parents and students
+    Gtk::MenuItem *menuitem_tra = Gtk::manage(new Gtk::MenuItem("_Transcripts", true));
+    menuitem_tra->signal_activate().connect([this] {this->show_data(4);});
+    viewmenu->append(*menuitem_tra); 
+    
     
     
     //     H E L P
@@ -772,12 +792,110 @@ void Mainwin::on_new_section(){
     	section.push_back(Section{course.at(p), Semester::SUMMER, syear.get_value_as_int()});
     }
 
+}
+
+void Mainwin::on_new_transcript()
+{
+	lett.str("");
+	Gtk::Dialog dialog{"Make a Transcript", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label d_stu{"Pick a student"};
+    Gtk::ComboBoxText c_stu{true}; 
+	for (auto stu : student )
+	{
+		c_stu.append(stu.to_string());
+	}
+	c_stu.set_active(0);
+	
+	
+	grid.attach(d_stu, 1, 0, 1, 1); 
+    grid.attach(c_stu, 1, 1, 2, 1);
+    
+    Gtk::Label d_sec{"Pick the subject"};
+    Gtk::ComboBoxText c_sec{true}; 
+	for (auto sec : section )
+	{
+		lett.str("");
+		lett<< sec; 
+		c_sec.append(lett.str());
+	}
+	c_sec.set_active(0);
+	
+	grid.attach(d_sec, 1, 2, 1, 1); 
+    grid.attach(c_sec, 1, 3, 2, 1);
+
+    Gtk::Label d_gra{"Pick a Subject"};
+    Gtk::ComboBoxText c_gra{true}; 
+	for (auto gra : grade )
+	{
+		c_gra.append(gra);
+	}
+	c_gra.set_active(0);
+	
+	grid.attach(d_gra, 1, 4, 1, 1); 
+    grid.attach(c_gra, 1, 5, 2, 1);
 
 
+	dialog.get_content_area()->add(grid);
+    
+    
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
+    dialog.add_button("Cancle", Gtk::RESPONSE_ACCEPT); 
+    int response;
 
+    dialog.show_all();
 
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+    //waits till the cancle button disquized as an OK button is selected
+
+    if (response == Gtk::RESPONSE_ACCEPT)
+    {
+
+    }
+    else
+    {
+    Transcript t{student.at(c_stu.get_active_row_number()),
+    			 section.at(c_sec.get_active_row_number())};
+    
+		if (grade.at(c_gra.get_active_row_number()) == grade.at(0))
+		{
+			t.assign_grade(Grade::A);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(1))
+		{
+			t.assign_grade(Grade::B);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(2))
+		{
+			t.assign_grade(Grade::C);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(3))
+		{
+			t.assign_grade(Grade::D);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(4))
+		{
+			t.assign_grade(Grade::F);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(5))
+		{
+			t.assign_grade(Grade::I);
+		}
+		else if (grade.at(c_gra.get_active_row_number()) == grade.at(6))
+		{
+			t.assign_grade(Grade::X);
+		}
+    	transcripts.push_back(t);
+    }
 
 }
+
+void Mainwin::on_set_grade()
+{
+
+}
+
 
 void Mainwin::show_data(int a) {
 	lett.str("");
@@ -801,7 +919,7 @@ void Mainwin::show_data(int a) {
 		lett << "\tCourses:\n\n";
 		for (auto cour : course)
 		{
-			lett << cour;
+			lett << cour << std::endl;
 		}
 		s = lett.str();
 		display->set_markup(s);
@@ -811,11 +929,20 @@ void Mainwin::show_data(int a) {
 		lett << "\tSections:\n\n";
 		for (auto sect : section)
 		{
-			lett << sect;
+			lett << sect << std::endl;
 		}
 		s = lett.str();
 		display->set_markup(s);
 	}	
+	else if (a == 4)
+	{
+		lett << "\tTranscripts:\n\n";
+		for (auto tra : transcripts)
+		{
+			lett << tra << std::endl;
+		}
+		display->set_markup(lett.str());
+	}		
 		
 }
 
@@ -860,18 +987,18 @@ void Mainwin::on_easter_egg() {
         student[3].add_parent(parent[3]); parent[3].add_student(student[3]);
 
         int i= 0;
-        while(i < 31) {
-            for(auto subjects : subjects_vector) {
+        while(i < 6) {
+            for(Subject subjects : subjects_vector) {
                 int grade = std::min(i++ % 3 + 1, 12);
-                course.push_back(new Course{subjects, grade});
+                course.push_back( Course{subjects, grade});
             }
         }
         
         for(int i=0; i<=2; ++i) {
             Semester semesters = static_cast<Semester>(i);
-            for(int j=0; j<=15; ++j) {
-                Course courses = *course.at(rand() % course.size());
-                section.push_back(new Section{course, semesters, 2021});
+            for(int j=0; j<=5; ++j) {
+                Course courses = course.at(rand() % course.size());
+                section.push_back( Section{courses, semesters, 2021});
             }
         }
         
