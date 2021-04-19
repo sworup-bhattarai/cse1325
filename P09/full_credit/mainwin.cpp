@@ -103,6 +103,13 @@ Mainwin::Mainwin() {
     Gtk::MenuItem *menuitem_parent = Gtk::manage(new Gtk::MenuItem("New _Parent", true));
     menuitem_parent->signal_activate().connect([this] {this->on_new_parents_click();});
     insertmenu->append(*menuitem_parent);
+    
+    //           N E W  T E A C H E R S 
+    // Append About to the Insert menu
+    Gtk::MenuItem *menuitem_teacher = Gtk::manage(new Gtk::MenuItem("New _Teacher", true));
+    menuitem_teacher->signal_activate().connect([this] {this->on_new_teacher();});
+    insertmenu->append(*menuitem_teacher);
+    
 
     //           N E W  C O U R S E 
     // Append About to the Insert menu
@@ -606,9 +613,51 @@ void Mainwin::on_new_parents_click(){
 	}
 	show_data(1);
 			
+} 
+
+void Mainwin::on_new_teacher(){
+	
+	Gtk::Dialog dialog{"Teacher's info", *this};
+    Gtk::Grid grid;
+    
+    Gtk::Label lname{"Name"};
+    Gtk::Entry ename;               
+
+    grid.attach(lname, 0, 1, 1, 1);
+    grid.attach(ename, 1, 2, 2, 1);
+
+    
+    Gtk::Label lemail{"Email"};
+    Gtk::Entry eemail;               
+
+    grid.attach(lemail, 0, 3, 1, 1);
+    grid.attach(eemail, 1, 4, 2, 1);
+
+   
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Ok", Gtk::RESPONSE_CANCEL);
+    int response;
+
+    dialog.show_all();
+
+    while((response = dialog.run()) == Gtk::RESPONSE_OK) {}
+	//waits till the cancle button disquized as an OK button is selected
+	
+	
+	if (ename.get_text().size() != 0) {
+    	if (eemail.get_text().size() != 0) {
+    	
+			teacher.push_back(Teacher{ename.get_text(),eemail.get_text()});
+        
+        }
+	}
+	show_data(1);
+			
 
 	
-}   
+}
+  
 void Mainwin::on_student_to_parent_click(){
 
 	Gtk::Dialog dialog{"Parents and Children", *this};
@@ -911,6 +960,11 @@ void Mainwin::show_data(int a) {
 		{
 			s+= stu.full_info();
 		}
+		s += "\n\tTeachers:\n\n";
+		for (auto tea : teacher )
+		{
+			s += tea.full_info();
+		}		
 
 		display->set_markup(s);
 	}
@@ -942,11 +996,35 @@ void Mainwin::show_data(int a) {
 			lett << tra << std::endl;
 		}
 		display->set_markup(lett.str());
-	}		
-		
+	}
+	
 }
 
 void Mainwin::on_easter_egg() {
+	const std::vector<std::string> teanames{
+		"Denis Fraise",
+		"Sindy Eckstein",
+		"Nettie Tincher",
+		"Echo Rochelle",
+		"Chastity Flavin",
+		"Delphia Weitz",
+		"Roland Watt",
+		"Manuela Dials",
+		"Trinh Ritz",
+		"Kelvin Feaster",
+		};
+	const std::vector<std::string> temails{
+		"seanq@inlook.com",
+		"penna@fmail.com",
+		"meder@leftlook.com",
+		"cantu@rightlook.com",
+		"eimear@ayyyy.net",
+		"odlyzko@yaya.ca",
+		"phyruxus@nab.com",
+		"jimmichie@coldmail.com",
+		"skythe@xcv.com",
+		"garland@acme.net",
+	};	
     const std::vector<std::string> names{
         "Enrique Young",  // student
         "Isabella Young", // student
@@ -958,10 +1036,10 @@ void Mainwin::on_easter_egg() {
         "Oscar Montgomery",
       };
     const std::vector<std::string> emails{
-        "eyoung@gmale.com",
-        "iyoung@fmale.com",
+        "eyoung@hmale.com",
+        "iyoung@gomale.com",
         "biniti@myschool.org",
-        "james.q.montgomery@british.uk",
+        "james.q.montgomery@brit.ish",
         "bob-young@woohoo.com",
         "youngsr@uta.edu",
         "nimish.adani@hatmail.com",
@@ -985,6 +1063,9 @@ void Mainwin::on_easter_egg() {
         student[3].add_parent(parent[1]); parent[1].add_student(student[3]);
         student[3].add_parent(parent[2]); parent[2].add_student(student[3]);
         student[3].add_parent(parent[3]); parent[3].add_student(student[3]);
+        
+        for(int i=0; i<temails.size(); ++i)
+            teacher.push_back(Teacher{teanames[i], temails[i]});
 
         int i= 0;
         while(i < 6) {
@@ -1002,6 +1083,15 @@ void Mainwin::on_easter_egg() {
             }
         }
         
+        for(int j=0; j<=10; ++j) {
+        	Transcript t = {student.at(rand() % student.size()),
+            				section.at(rand() % section.size()) };
+            t.assign_grade(Grade::X);				
+            
+            				
+            transcripts.push_back(t) ;       
+        }
+        
         show_data(1);
     } catch(std::exception& e) {
        
@@ -1014,7 +1104,7 @@ void Mainwin::on_about_click() {
     dialog.set_program_name("S.M.A.R.T.");
     auto logo = Gdk::Pixbuf::create_from_file("19197906.png");
     dialog.set_logo(logo);
-    dialog.set_version("Version 0.2.0");
+    dialog.set_version(version);
     dialog.set_copyright("Copyright 2021-2022");
     dialog.set_license_type(Gtk::License::LICENSE_AGPL_3_0_ONLY);
     std::vector< Glib::ustring > authors = {"Sworup Bhattarai"};

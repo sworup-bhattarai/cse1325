@@ -36,6 +36,7 @@ class Mainwin : public Gtk::Window {
         void on_about_click(); 
         void on_new_course();
         void on_new_section();
+        void on_new_teacher();
         void on_new_transcript();
         void on_set_grade();
         
@@ -44,6 +45,7 @@ class Mainwin : public Gtk::Window {
     private:
 		std::vector<Student> student;
 		std::vector<Parent> parent;
+		std::vector<Teacher> teacher;
 		std::vector<Course> course;
 		std::vector<Section> section;
 		std::vector<Transcript> transcripts;
@@ -54,6 +56,7 @@ class Mainwin : public Gtk::Window {
 		void show_data(int a);
 		std::string _filename;
 		std::ostringstream lett;
+		const std::string version = "Version 0.4.1";
 		
 	
 };

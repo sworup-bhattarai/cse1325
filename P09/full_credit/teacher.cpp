@@ -16,7 +16,7 @@ void Teacher::save(std::ostream& ost)
 std::string Teacher::full_info()  const
 {
 	std::string info;
-	info = _name + " (" + _email + ")" ;
+	info = _name + " (" + _email + ")\n" ;
 	return info;
 
 }
