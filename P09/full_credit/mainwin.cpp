@@ -31,7 +31,7 @@ Mainwin::Mainwin() {
 	grade.push_back("X");
 	
 	
-    set_default_size(550, 250);
+    set_default_size(800, 450);
     set_title("School Management And Reporting Tool(S.M.A.R.T.)");
 
     // Put a vertical box container as the Window contents
@@ -157,7 +157,7 @@ Mainwin::Mainwin() {
 
     //           S T U D E N T  A N D  P A R E N T 
     // Shows parents and students
-    Gtk::MenuItem *menuitem_sap = Gtk::manage(new Gtk::MenuItem("Student _and parent", true));
+    Gtk::MenuItem *menuitem_sap = Gtk::manage(new Gtk::MenuItem("Students, _Parents, and Teachers", true));
     menuitem_sap->signal_activate().connect([this] {this->show_data(1);});
     viewmenu->append(*menuitem_sap); 
     
@@ -262,19 +262,42 @@ Mainwin::Mainwin() {
     Gtk::SeparatorToolItem *separator2 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*separator2);
     
-     //     O P E N  S C H O O L
-    // Add a open school icon
-    Gtk::ToolButton *view_courses_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+     //      S H O W  P E R S O N S
+    // SHOWS COURSES
+    Gtk::Image* new_person_button_image = Gtk::manage(new Gtk::Image{"teach_n_students.png"});
+    Gtk::ToolButton *view_person_button;
+    view_person_button = Gtk::manage(new Gtk::ToolButton(*new_person_button_image));
+    view_person_button->set_tooltip_markup("Show Parent, Students, and Teachers");
+    view_person_button->signal_clicked().connect([this] {this->show_data(1);});
+    toolbar->append(*view_person_button);    
+    
+     //      S H O W  C O U R S E S
+    // SHOWS COURSES
+    Gtk::Image* new_course_button_image = Gtk::manage(new Gtk::Image{"courses.png"});
+    Gtk::ToolButton *view_courses_button;
+    view_courses_button = Gtk::manage(new Gtk::ToolButton(*new_course_button_image));
     view_courses_button->set_tooltip_markup("Show Courses");
     view_courses_button->signal_clicked().connect([this] {this->show_data(2);});
     toolbar->append(*view_courses_button);
     
-     //     S A V E  S C H O O L
+     //     S H O W  S E C T I O N 
     // Add a save school icon
-    Gtk::ToolButton *view_section_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image* new_section_button_image = Gtk::manage(new Gtk::Image{"section.png"});
+    Gtk::ToolButton *view_section_button;
+    view_section_button = Gtk::manage(new Gtk::ToolButton(*new_section_button_image));
     view_section_button->set_tooltip_markup("Show Sections");
     view_section_button->signal_clicked().connect([this] {this->show_data(3);});
     toolbar->append(*view_section_button);
+    
+    
+    
+     //         S H O W  T R A N S C R I P T S
+    Gtk::Image* new_transcript_button_image = Gtk::manage(new Gtk::Image{"transcript.png"});
+    Gtk::ToolButton *view_transcripts_button;
+    view_transcripts_button = Gtk::manage(new Gtk::ToolButton(*new_transcript_button_image));
+    view_transcripts_button->set_tooltip_markup("Show Transcripts");
+    view_transcripts_button->signal_clicked().connect([this] {this->show_data(4);});
+    toolbar->append(*view_transcripts_button);
     
     // ////////////////////////////////////////////////////////////////////////
     // P E O P L E   D I S P L A Y
@@ -518,6 +541,8 @@ void Mainwin::on_open_click() {
 
 
 }
+
+
 
 
 
@@ -812,6 +837,19 @@ void Mainwin::on_new_section(){
 	grid.attach(d_sem, 0, 5, 1, 1); 
     grid.attach(c_sem, 0, 6, 2, 1);
     
+    Gtk::Label d_tea{"Pick a Course"};
+    Gtk::ComboBoxText c_tea{true}; 
+	for (auto tea : teacher)
+	{
+		lett << tea;
+		str = lett.str();
+		c_tea.append(str);
+		lett.str("");
+	}
+	c_tea.set_active(0);
+	grid.attach(d_tea, 0, 7, 1, 1); 
+    grid.attach(c_tea, 0, 8, 2, 1);
+    
 	dialog.get_content_area()->add(grid);
 
     dialog.add_button("Ok", Gtk::RESPONSE_CANCEL); 
@@ -830,15 +868,15 @@ void Mainwin::on_new_section(){
     }
     else if (semester.at(s) == "Fall")
     {
-    	section.push_back(Section{course.at(p), Semester::FALL, syear.get_value_as_int()});
+    	section.push_back(Section{course.at(p), Semester::FALL, syear.get_value_as_int(), teacher.at(c_tea.get_active_row_number())});
     }
     else if (semester.at(s) == "Spring")
     {
-    	section.push_back(Section{course.at(p), Semester::SPRING, syear.get_value_as_int()});
+    	section.push_back(Section{course.at(p), Semester::SPRING, syear.get_value_as_int(), teacher.at(c_tea.get_active_row_number())});
     }
     else if (semester.at(s) == "Summer")
     {
-    	section.push_back(Section{course.at(p), Semester::SUMMER, syear.get_value_as_int()});
+    	section.push_back(Section{course.at(p), Semester::SUMMER, syear.get_value_as_int(), teacher.at(c_tea.get_active_row_number())});
     }
 
 }
@@ -1079,7 +1117,7 @@ void Mainwin::on_easter_egg() {
             Semester semesters = static_cast<Semester>(i);
             for(int j=0; j<=5; ++j) {
                 Course courses = course.at(rand() % course.size());
-                section.push_back( Section{courses, semesters, 2021});
+                section.push_back( Section{courses, semesters, 2021, teacher.at(rand() % teacher.size())});
             }
         }
         
@@ -1112,7 +1150,11 @@ void Mainwin::on_about_click() {
     std::vector< Glib::ustring > artists = {
         "Logo by macrovector, licensed under CC BY-SA 3.0  https://image.freepik.com/free-vector/school-building-with-without-textures_1284-52251.jpg",
         "Student and Parent Icons made by Freepik, licensed under CC BY-SA 3.0  https://www.flaticon.com/packs/social-media-81",
-        "Made in collabration with Professor George F. Rice from The Univercity Of Texas At Arlington https://github.com/prof-rice"};
+        "Made in collabration with Professor George F. Rice from The Univercity Of Texas At Arlington https://github.com/prof-rice",
+        "Transcript image by Vectors Point from the Noun Project, licensed under CC BY-SA 3.0 https://thenounproject.com/vectorspoint/collection/education-process-online-learning-glyph-icons-coll/",
+        "Courses image by ArmOkay from the Noun Project, licensed under CC BY-SA 3.0 https://thenounproject.com/ArmOkay/",
+        "Sections by Leonidas Oikonomou from the Noun Project https://thenounproject.com/roleplay/",
+        "Teacher and Students by Gan Khoon Lay from the Noun Project https://thenounproject.com/leremy/"};
     dialog.set_artists(artists);
     dialog.run();
 }
