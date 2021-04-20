@@ -303,9 +303,10 @@ Mainwin::Mainwin() {
     // P E O P L E   D I S P L A Y
     // Provide a text entry box to show the remaining sticks
     display = Gtk::manage(new Gtk::Label());
-	
+	scroll = Gtk::manage(new Gtk::ScrolledWindow());
 	show_data(1);
-    vbox->add(*display);
+	scroll->add(*display);
+    vbox->add(*scroll);
     
 
     // Make the box and everything in it visible
@@ -330,8 +331,13 @@ void Mainwin::on_new_school_click() {
     
     student.clear();
     parent.clear();
+    teacher.clear();
+    course.clear();
+    section.clear();
+    transcripts.clear();
+    
     show_data(1);
- 
+ 	
 }
 
 void Mainwin::on_quit_click() {
@@ -374,6 +380,10 @@ void Mainwin::on_save_as_click() {
 			{
 				s.save(ofs);
 			}
+			for (auto s : teacher)
+			{
+				s.save(ofs);
+			}
 			for (auto s : course)
 			{
 				s.save(ofs);
@@ -382,6 +392,7 @@ void Mainwin::on_save_as_click() {
 			{
 				s.save(ofs);
 			}
+			
 
 			if(!ofs) throw std::runtime_error{"Error writing file"};
 		
@@ -453,9 +464,12 @@ void Mainwin::on_open_click() {
 	int selector = 0; 
 	int pa = 0;
 	int st = 0;
+	int tea = 0;
 	
 	std::vector<std::vector<std::string>> par; 
 	std::vector<std::vector<std::string>> stu;
+	std::vector<std::vector<std::string>> teac;
+	std::vector<std::vector<std::string>> cou;
 	std::vector<std::string> inf;	
 	if (result == 1) {
 		on_new_school_click();
@@ -475,6 +489,14 @@ void Mainwin::on_open_click() {
             	{
             		selector = 2;
             	}
+            	else if (q == "Teacher")
+            	{
+            		selector = 3;
+            	}
+            	else if (q == "Course")
+            	{
+            		selector = 4;
+            	}
             	else if (q == "End Parent")
             	{
             		par.push_back(inf);
@@ -488,14 +510,23 @@ void Mainwin::on_open_click() {
             		inf.clear();
             		st++;
             	}
-            	else if (selector == 2)
+            	else if (q == "End Teacher")
+            	{
+            		teac.push_back(inf);
+            		inf.clear();
+            		tea++;
+            	}
+            	else if (q == "End Course")
+            	{
+            		cou.push_back(inf);
+            		inf.clear();
+            		tea++;
+            	}
+            	else 
             	{
             		inf.push_back(q);
             	}
-            	else if (selector == 1)
-            	{
-            		inf.push_back(q);
-            	}
+            	
             }
 //
 // creating parent and student
@@ -504,6 +535,10 @@ void Mainwin::on_open_click() {
 		{
 		    parent.push_back(Parent{par[i][0], par[i][1]});
 		}	
+		for (int i = 0; i < teac.size(); i++) 
+		{
+		    teacher.push_back(Teacher{teac[i][0], teac[i][1]});
+		}
 
 		for (int i = 0; i < stu.size(); i++) 
 		{
@@ -533,7 +568,33 @@ void Mainwin::on_open_click() {
 	    }
 	}
 	      
-            
+	for(int i = 0; i<cou.size(); i++) 
+	{
+		if (cou[i][0] == "Reading")
+		{
+			course.push_back(Course{Subject::READING,stoi(cou[i][1])});
+		}
+		else if (cou[i][0] == "Writing")
+		{
+			course.push_back(Course{Subject::WRITING,stoi(cou[i][1])});
+		}
+		else if (cou[i][0] == "Math")
+		{
+			course.push_back(Course{Subject::MATH,stoi(cou[i][1])});
+		}
+		else if (cou[i][0] == "Science")
+		{
+			course.push_back(Course{Subject::SCIENCE,stoi(cou[i][1])});
+		}
+		else if (cou[i][0] == "History")
+		{
+			course.push_back(Course{Subject::HISTORY,stoi(cou[i][1])});
+		}
+		else if (cou[i][0] == "Art")
+		{
+			course.push_back(Course{Subject::ART,stoi(cou[i][1])});
+		}
+	}          
         
     
 
@@ -975,6 +1036,7 @@ void Mainwin::on_new_transcript()
 		}
     	transcripts.push_back(t);
     }
+    show_data(4);
 
 }
 
@@ -1106,22 +1168,22 @@ void Mainwin::on_easter_egg() {
             teacher.push_back(Teacher{teanames[i], temails[i]});
 
         int i= 0;
-        while(i < 6) {
+        while(i < 30) {
             for(Subject subjects : subjects_vector) {
-                int grade = std::min(i++ % 3 + 1, 12);
+                int grade = std::min(i++ % 3 + 1 , 12);
                 course.push_back( Course{subjects, grade});
             }
         }
         
         for(int i=0; i<=2; ++i) {
             Semester semesters = static_cast<Semester>(i);
-            for(int j=0; j<=5; ++j) {
+            for(int j=0; j<=10; ++j) {
                 Course courses = course.at(rand() % course.size());
                 section.push_back( Section{courses, semesters, 2021, teacher.at(rand() % teacher.size())});
             }
         }
         
-        for(int j=0; j<=10; ++j) {
+        for(int j=0; j<=50; ++j) {
         	Transcript t = {student.at(rand() % student.size()),
             				section.at(rand() % section.size()) };
             t.assign_grade(Grade::X);				

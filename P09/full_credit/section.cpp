@@ -13,7 +13,7 @@ Section::Section(Course course, Semester semester, int year, Teacher& teacher) :
 void Section::save(std::ostream& ost)
 {
 	ost << "Section" << std::endl;
-	ost << _course ;
+	ost << _course << std::endl;;
 	ost << ::to_string(_semester) << std::endl;
 	ost << _year << std::endl;
 	ost << _teacher << std::endl;

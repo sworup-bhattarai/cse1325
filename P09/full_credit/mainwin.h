@@ -53,7 +53,8 @@ class Mainwin : public Gtk::Window {
 		std::vector<std::string> semester;
 		std::vector<std::string> grade;
 		Gtk::Label *display;                      // Display of sticks on game board
-		void show_data(int a);
+		Gtk::ScrolledWindow *scroll;
+		void show_data(int a);		
 		std::string _filename;
 		std::ostringstream lett;
 		const std::string version = "Version 0.4.1";
