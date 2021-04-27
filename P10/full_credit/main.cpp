@@ -49,9 +49,9 @@ int main(int argc, char* argv[]) {
 		    {
 		        // Instance a Solver, and use it to solve for the word
 		        Solver solver{puzzles[j]};
-		        m.lock(); 
-		        std::thread y{[&]{ Solution s = solver.solve(word); solutions.push_back(s); }};
-		    m.unlock();
+		         
+		        std::thread y{[&]{ Solution s = solver.solve(word); m.lock();  solutions.push_back(s); m.unlock();}};
+		    
 		    y.join();
 		    }
 		}
